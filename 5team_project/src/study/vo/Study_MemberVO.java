@@ -11,7 +11,7 @@ public class Study_MemberVO implements Serializable {
 		return id;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.id =id;
 	}
 	public String getPwd() {
 		return pwd;
