@@ -75,7 +75,7 @@ public class Controller extends HttpServlet {
          e.printStackTrace();
       }
       request.setAttribute("CONTENT", view);
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/template/template.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/main/mid.jsp");
       dispatcher.forward(request, response);
    }
    
