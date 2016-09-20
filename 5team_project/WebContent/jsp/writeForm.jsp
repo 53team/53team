@@ -20,9 +20,6 @@
 <center><b>글쓰기</b></center><br>
 <form action = "writePro.do" method="post" name = "writeform" onsubmit="return writeSave()">
 	<input type="hidden" name="num" value="${num}">
-	<input type="hidden" name="ref" value="${ref}">
-	<input type="hidden" name="re_step" value="${re_step}">
-	<input type="hidden" name="re_level" value="${re_level}">
 
 <table width='400' border='1' cellspacing='0' cellpadding='0' bgcolor="${bodyback_c}"
 align="center">
@@ -51,16 +48,8 @@ align="center">
 
 <!--  --------------------------------------------------------------------------------------------- -->
 <tr>
-	<td width="70" bgcolor = "${value_c}" align = "center"> EMAIL</td>
-	<td width="330"><input type="text" size= "40" maxlenth="30" name ="email"></td>
-</tr>
-<tr>
 	<td width="70" bgcolor = "${value_c}" align = "center"> 내  용</td>
 	<td width="330"><textarea rows="13" cols="40" name = "content"></textarea></td>
-</tr>
-<tr>
-	<td width="70" bgcolor = "${value_c}" align = "center"> 비밀번호 </td>
-	<td width="330"><input type="password" size= "8" maxlenth="10" name ="passwd"></td>
 </tr>
 <tr>
 	<td align="center" colspan="2" bgcolor="${value_c }">

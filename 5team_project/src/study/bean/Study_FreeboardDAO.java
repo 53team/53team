@@ -109,6 +109,7 @@ public class Study_FreeboardDAO {
 			if(rs.next()){
 				count = rs.getInt(1);
 			}
+			System.out.println(count + "!!!!!!");
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -135,20 +136,18 @@ public class Study_FreeboardDAO {
 			/*sql = "select num, writer, email, subject, passwd, reg_date, readcount, ref, re_step, re_level, content, ip, r "
 					+ "from(select num, writer, email, subject, passwd, reg_date, readcount, ref, re_step, re_level, content, ip, rownum r "
 					+ " from(select num, writer, email, subject, passwd, reg_date, readcount, ref, re_step, re_level, content, ip "
-					+ " from board order by ref desc, re_step asc) order by ref desc, re_level asc) where r>=? and r<=?";*/
-			
-			sb.append("select num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, "); 
-			sb.append("content, ip, readcount, r from(select num, writer, email, subject, passwd, ");
-			sb.append(" reg_date, ref, re_step, re_level, content, ip, readcount, rownum r " );
-			sb.append(" from(select num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, ");
-			sb.append("content, ip, readcount  from board order by ref desc, re_step asc) ");
-			sb.append(" order by ref desc, re_level asc) where r>=? and r<=? ");
+					+ " from board order by ref desc, re_step asc) order by ref desc, re_level asc) where r>=? and r<=?";
+			*/
+			sb.append("select num, writer, subject, content, reg_date, readnum, r"); 
+			sb.append(" from(select num, writer, subject, content, reg_date, readnum, rownum r ");
+			sb.append(" from(select num, writer, subject, content, reg_date, readnum ");
+			sb.append(" from study_freeboard order by num desc where r>=? and r<=? ");
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){
+			//if(rs.next()){
 				list = new ArrayList(endRow);
 				
 				do{
@@ -163,7 +162,7 @@ public class Study_FreeboardDAO {
 					//list 객체에 데이터 저장빈인 BoardVO 객체를 저장
 					list.add(vo);
 				}while(rs.next());
-			}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{

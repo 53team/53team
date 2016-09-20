@@ -1,4 +1,4 @@
-package study.commnad;
+package study.command;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -33,7 +33,7 @@ public class ContentAction implements CommandAction {
 		
 		System.out.println("pageNum : " + pageNum);
 				
-		return "/board/content.jsp";
+		return "/jsp/content.jsp";
 	}
 
 }

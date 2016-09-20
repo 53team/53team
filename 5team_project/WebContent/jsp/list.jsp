@@ -35,7 +35,6 @@
 					<td align="center" width="50">작성자</td>
 					<td align="center" width="50">작성날짜</td>
 					<td align="center" width="50">조회수</td>
-					<td align="center" width="50">I P</td>
 
 					<c:forEach var="list" items="${list }">
 						<tr height="30">
@@ -43,30 +42,31 @@
 								<c:out value="${number }" />
 								<c:set var="number" value="${number - 1 }" />
 							</td>
-							<td width="250"><c:if test="${list.re_level > 0}"> //답변글이라면,....
+							<%-- <td width="250"><c:if test="${list.re_level > 0}"> //답변글이라면,....
 								<img src="board/images/level.gif " width="${5 * list.re_level }" height="16" >	
 								<img src="board/images/re.gif">
 		</c:if> 
 		<c:if test="${list.re_level == 0 }">
 			<img src="board/images/re.gif" width="${5 * list.re_level }" height="16" >
-		</c:if> <!-- 상세보기 페이지 --> 
+		</c:if> --%>
+		<!-- 상세보기 페이지 -->
+		<td width="250">
 			<a href="content.do?num=${list.num }&pageNum=${currentPage}">
 					${list.subject } </a> 
-		<c:if test="${list.readcount >= 3 }">
+		<%-- <c:if test="${list.readnum >= 3 }">
 			<img src="board/images/hot.gif" width="${5 * list.re_level }" height="16">
 			<img src="board/images/hot.gif">
-		</c:if>
+		</c:if> --%>
 		</td>
-		<td align="center" width="100"><a href="mailto:${list.email }"> ${list.writer } </a></td>
+		<td align="center" width="100">${list.writer }</td>
 		<td align="center" width="150">${list.reg_date }</td>
-		<td align="center" width="150">${list.readcount }</td>
-		<td align="center" width="150">${list.ip }</td>
+		<td align="center" width="150">${list.readnum }</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</c:if>
 
-		<c:if test="${count > 0 }">
+<%-- 		<c:if test="${count > 0 }">
 			<c:set var="pageCount"
 				value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1 ) }" />
 			<c:set var="startPage" value="${1 }" />
@@ -87,7 +87,7 @@
 				<a href="list.do?pageNum=${startpage - 5 }">[이전]</a>
 			</c:if>
 
-		</c:if>
+		</c:if> --%>
 
 		<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
 			<a href="list.do?pageNum=${i }">[${i }]</a>

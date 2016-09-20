@@ -1,4 +1,4 @@
-package study.commnad;
+package study.command;
 
 import java.sql.Timestamp;
 
@@ -22,7 +22,7 @@ public class WriteProAction implements CommandAction {
 		Study_FreeboardDAO dao = Study_FreeboardDAO.getInstance();
 		dao.insert(vo);
 		
-		return "/board/writePro.jsp";
+		return "/jsp/writePro.jsp";
 	}
 
 }

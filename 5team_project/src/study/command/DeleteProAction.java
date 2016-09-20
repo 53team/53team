@@ -1,4 +1,4 @@
-package study.commnad;
+package study.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class DeleteProAction implements CommandAction {
 		request.setAttribute("pageNum", pageNum);
 		//request.setAttribute("num", num);
 		
-		return "/board/deletePro.jsp";
+		return "/jsp/deletePro.jsp";
 	}
 
 }

@@ -1,4 +1,4 @@
-package study.commnad;
+package study.command;
 
 import java.sql.Timestamp;
 
@@ -32,7 +32,7 @@ public class UpdateProAction implements CommandAction {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("vo", vo);
 		
-		return "/board/updatePro.jsp";
+		return "/jsp/updatePro.jsp";
 	}
 
 }

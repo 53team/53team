@@ -1,4 +1,4 @@
-package study.commnad;
+package study.command;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,6 +29,7 @@ public class ListAction implements CommandAction {
 
 		Study_FreeboardDAO dao = Study_FreeboardDAO.getInstance();  //db 연결 
 		count = dao.getListAllCount();   // 전체 페이지 리턴....
+		System.out.println(count + "!!!!!!");
 
 		if( count > 0 ) {
 			list = dao.getSelectAll(startRow, endRow );  //레코드 목록 보기
@@ -46,8 +47,10 @@ public class ListAction implements CommandAction {
 		request.setAttribute("pageSize", new Integer(pageSize));
 		request.setAttribute("number", new Integer(number));
 		request.setAttribute("list", list);
+		
+		System.out.println(count + "!!!!!!");
 
-		return "/board/list.jsp";
+		return "/jsp/list.jsp";
 	}
 
 }

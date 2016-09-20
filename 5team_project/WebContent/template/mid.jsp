@@ -6,7 +6,7 @@
 	<title>mid</title>
 </head>
 <body>
-<jsp:include page="${CONTENT }" />
+
 <br><br>
 </body>
 </html>
