@@ -62,3 +62,8 @@ create sequence replyboard_num
 	from(select num, writer, email, subject, passwd, reg_date, readcount, ref, re_step, re_level, content, ip, rownum r 
 		from(select num, writer, email, subject, passwd, reg_date, readcount, ref, re_step, re_level, content, ip 
 			from board order by ref desc, re_step asc) order by ref desc, re_level asc) where r>=start and r<=end;
+		
+select * from study_freeboard;			
+
+insert into study_freeboard(num, writer, subject, content, reg_date) 
+	values (freeboard_num.nextVal, 'repl', 'first', 'success!!!!!', '2016-09-20'); 

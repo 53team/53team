@@ -1,4 +1,4 @@
-package study.vo;
+package study.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
