@@ -10,14 +10,15 @@ public class FreeboardDAO {
 	private static FreeboardDAO instance = new FreeboardDAO();
 	public static FreeboardDAO getInstance() {
 		return instance;
-	}
+	} // 인스턴스 생성부
+	
 	public FreeboardDAO() {	}
 
 	public Connection getConnection() throws Exception {
 		InitialContext ctx = new InitialContext(); 
 		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc:BoardDB");
 		return ds.getConnection();
-	} 
+	} //커넥션 풀 연결부 
 
 	public void insert(FreeboardVO vo) {
 		Connection conn = null;
@@ -51,7 +52,7 @@ public class FreeboardDAO {
 			CloseUtil.close(pstmt);
 			CloseUtil.close(conn);	
 		}	
-	}
+	} // write
 	
 	public int getListAllCount() {
 		Connection conn = null;
@@ -74,7 +75,7 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);
 		}
 		return count;
-	}
+	} // list(1)
 	
 	public List<FreeboardVO> getSelectAll(int startRow, int endRow) {
 		Connection conn = null;
@@ -111,7 +112,7 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);
 		}
 		return list;
-	}
+	} // list(2)
 
 	public FreeboardVO getDataDetail(int num) {
 		Connection conn = null;
@@ -147,5 +148,87 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);
 		}
 		return vo;
-	}
+	} //content
+	public FreeboardVO update(int num) {
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      FreeboardVO vo = null;
+
+	      try {
+	         conn = getConnection();
+	         pstmt = conn.prepareStatement("select * from study_freeboard where num = ?");
+	         pstmt.setInt(1, num);
+	         rs = pstmt.executeQuery();
+
+	         if (rs.next()) {
+	            vo = new FreeboardVO();
+	            vo.setNum(rs.getInt("num"));
+	            vo.setWriter(rs.getString("writer"));
+	            vo.setSubject(rs.getString("subject"));
+	            vo.setContent(rs.getString("content"));
+
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         CloseUtil.close(conn);
+	         CloseUtil.close(rs);
+	         CloseUtil.close(pstmt);
+	      }
+
+	      return vo;
+	   }
+	      
+	      // 글 수정처리에서 사용할 함수 
+	   public int update(FreeboardVO vo) {
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+
+	      String dbwriter = "";
+	      String sql = "";
+	      StringBuffer sb = new StringBuffer();
+
+	      int result = -1;
+
+	      try {
+	         conn = getConnection();
+	         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
+	         pstmt.setInt(1, vo.getNum());
+	         rs = pstmt.executeQuery();
+
+	         if (rs.next()) {
+	            dbwriter = rs.getString("writer");
+
+	            if (dbwriter.equals(vo.getWriter())) {
+	               sb.append("update study_freeboard set subject = ?, content = ? ");
+	               sb.append("where num = ?");
+
+	               pstmt = conn.prepareStatement(sb.toString());
+
+	               pstmt.setString(1, vo.getSubject());
+	               pstmt.setString(2, vo.getContent());
+	               pstmt.setInt(3, vo.getNum());
+
+	               pstmt.executeUpdate();
+
+	               result = 1; // 업데이트 성공 시, 1 리턴...
+	            }
+
+	            else {
+	               result = 0; // 사용자가 다를 경우 업데이트 실패
+	            }
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         CloseUtil.close(conn);
+	         CloseUtil.close(pstmt);
+	         CloseUtil.close(rs);
+	      }
+
+	      return result;
+	   }
+
 }

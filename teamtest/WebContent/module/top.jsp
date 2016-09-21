@@ -95,7 +95,7 @@ $(function(){
     </li>
     <li><a href="#">핫이슈</a></li> 
     <li><a href="#">사이트맵</a></li>
-    <li><a href="#">로그인</a></li> 
+    <li><a href="/teamtest/loginForm.do">로그인</a></li> 
     <li><a href="/teamtest/registerForm.do">회원가입</a></li> 
   </ul>
 </div>
