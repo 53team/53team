@@ -178,9 +178,8 @@ public class FreeboardDAO {
 	      }
 
 	      return vo;
-	   }
-	      
-	      // 글 수정처리에서 사용할 함수 
+	   } //update(1) 수정전 데이터 추출
+
 	   public int update(FreeboardVO vo) {
 	      Connection conn = null;
 	      PreparedStatement pstmt = null;
@@ -213,11 +212,11 @@ public class FreeboardDAO {
 
 	               pstmt.executeUpdate();
 
-	               result = 1; // 업데이트 성공 시, 1 리턴...
+	               result = 1;
 	            }
 
 	            else {
-	               result = 0; // 사용자가 다를 경우 업데이트 실패
+	               result = 0;
 	            }
 	         }
 	      } catch (Exception e) {
@@ -229,6 +228,44 @@ public class FreeboardDAO {
 	      }
 
 	      return result;
-	   }
+	   } // update(2) 수정 로직
+	   
+	   public int delete(int num, String writer) {
+		      Connection conn = null;
+		      PreparedStatement pstmt = null;
+		      ResultSet rs = null;
+		      String dbwriter = "";
+		      int result = 0;
 
+		      try {
+		         conn = getConnection();
+		         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
+		         pstmt.setInt(1, num);
+		         rs = pstmt.executeQuery();
+
+		         if (rs.next()) {
+		            dbwriter = rs.getString("writer");
+
+		            if (dbwriter.equals(writer)) {
+		               pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
+		               pstmt.setInt(1, num);
+
+		               result = pstmt.executeUpdate();
+
+		               result = 1;
+		            }
+
+		            else
+		               result = 0;
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      } finally {
+		         CloseUtil.close(rs);
+		         CloseUtil.close(pstmt);
+		         CloseUtil.close(conn);
+		      }
+		      
+		      return result;
+	   }
 }
