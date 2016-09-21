@@ -11,13 +11,8 @@
 <body>
    <form action="updatePro.do?pageNum=${pageNum}" method="post" name="updateForm" onsubmit="return writeSave()">
       <table width='400' border='1' cellspacing='0' cellpadding='0' align="center">
-         <tr>
-            <td width="70" align="center">이 름</td>
-            <td width="330">
-            <input type="text" size="10" maxlength="10" name="writer" value="${writer}">
-            <input type="hidden" name="num" value="${num}">
-            </td>
-         </tr>
+         <input type="hidden" name="writer" value="${writer}">
+         <input type="hidden" name="num" value="${num}">
          <tr>
             <td width="70" align="center">제 목</td>
             <td width="330">
@@ -30,9 +25,9 @@
          </tr>
          <tr>
             <td align="center" colspan="2">
-               <input type="submit" value="글수정">
-               <input type="reset" value="다시작성">
-               <input type="button" value="목록보기" onclick="document.location.href='list.do?pageNum=1'">
+				<input type="submit" value="글수정">
+				<input type="reset" value="다시작성">
+				<input type="button" value="목록보기" onclick="document.location.href='list.do?pageNum=1'">
             </td>
          </tr>
       </table>

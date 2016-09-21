@@ -230,42 +230,21 @@ public class FreeboardDAO {
 	      return result;
 	   } // update(2) 수정 로직
 	   
-	   public int delete(int num, String writer) {
+	   public void delete(int num) {
 		      Connection conn = null;
 		      PreparedStatement pstmt = null;
-		      ResultSet rs = null;
-		      String dbwriter = "";
-		      int result = 0;
 
 		      try {
 		         conn = getConnection();
-		         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
-		         pstmt.setInt(1, num);
-		         rs = pstmt.executeQuery();
+	             pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
+	             pstmt.setInt(1, num);
 
-		         if (rs.next()) {
-		            dbwriter = rs.getString("writer");
-
-		            if (dbwriter.equals(writer)) {
-		               pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
-		               pstmt.setInt(1, num);
-
-		               result = pstmt.executeUpdate();
-
-		               result = 1;
-		            }
-
-		            else
-		               result = 0;
-		         }
+	             pstmt.executeUpdate();
 		      } catch (Exception e) {
 		         e.printStackTrace();
 		      } finally {
-		         CloseUtil.close(rs);
 		         CloseUtil.close(pstmt);
 		         CloseUtil.close(conn);
 		      }
-		      
-		      return result;
 	   }
 }

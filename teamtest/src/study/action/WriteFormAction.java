@@ -2,6 +2,7 @@ package study.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class WriteFormAction implements CommandAction {
 
@@ -16,6 +17,10 @@ public class WriteFormAction implements CommandAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		HttpSession session=request.getSession();
+		String sid = (String)session.getAttribute("sid");
+	      
+		request.setAttribute("sid", sid);
 		request.setAttribute("num", new Integer(num));
 		
 		return "/board/writeForm.jsp";

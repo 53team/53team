@@ -14,19 +14,12 @@ public class DeleteProAction implements CommandAction {
    public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
       request.setCharacterEncoding("utf-8");
       int num = Integer.parseInt(request.getParameter("num"));
-      String writer = request.getParameter("writer");
       String pageNum = request.getParameter("pageNum");
-
       FreeboardVO vo = new FreeboardVO();
       vo.setNum(Integer.parseInt(request.getParameter("num")));
-
       FreeboardDAO dao = FreeboardDAO.getInstance();
-      int check = dao.delete(num, writer);
-      
-        request.setAttribute("check", check);
-        request.setAttribute("pageNum", pageNum);
-
-
+      dao.delete(num);
+      request.setAttribute("pageNum", pageNum);
       return "/board/deletePro.jsp";
    }
 

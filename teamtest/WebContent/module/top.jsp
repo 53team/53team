@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,8 +96,13 @@ $(function(){
     </li>
     <li><a href="#">핫이슈</a></li> 
     <li><a href="#">사이트맵</a></li>
+    <c:if test="${sid == null}">
     <li><a href="/teamtest/loginForm.do">로그인</a></li> 
-    <li><a href="/teamtest/registerForm.do">회원가입</a></li> 
+    <li><a href="/teamtest/registerForm.do">회원가입</a></li>
+    </c:if>
+    <c:if test="${sid != null}"> 
+    <li><a href="/teamtest/logout.do">로그아웃</a></li>
+    </c:if>
   </ul>
 </div>
 </body>
