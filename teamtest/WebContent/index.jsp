@@ -20,6 +20,5 @@
 	</script>
 </head>
 <body>
-<div id="myDiv">여기에 파일 내용 출력</div>
 </body>
 </html>

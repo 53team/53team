@@ -84,7 +84,7 @@ $(function(){
     <li><a href="#">게시판</a>
       <ul>
         <li><a href="#">공지사항</a></li>
-        <li><a href="#">자유게시판</a></li>
+        <li><a href="/teamtest/list.do">자유게시판</a></li>
       </ul>
     </li>
     <li><a href="#">공부방</a>
@@ -96,7 +96,7 @@ $(function(){
     <li><a href="#">핫이슈</a></li> 
     <li><a href="#">사이트맵</a></li>
     <li><a href="#">로그인</a></li> 
-    <li><a href="#">회원가입</a></li> 
+    <li><a href="/teamtest/registerForm.do">회원가입</a></li> 
   </ul>
 </div>
 </body>

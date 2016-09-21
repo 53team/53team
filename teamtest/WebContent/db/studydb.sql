@@ -6,6 +6,7 @@ create table study_member(
 	location varchar2(20) not null,
 	reg_date date not null
 )
+select * from STUDY_MEMBER;
 
 create table study_freeboard(
 	num number(7) primary key,
