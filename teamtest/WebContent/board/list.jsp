@@ -23,8 +23,8 @@
 		</table>
 		</c:if>
 		<c:if test="${count > 0 }">
-		<table width="700" border="1" cellpadding="0" cellspacing="0"		align="center">
-			<tr height="30" bgcolor="${value_c}">
+		<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
+			<tr height="30">
 				<td align="center" width="50">번 호</td>
 				<td align="center" width="50">제 목</td>
 				<td align="center" width="50">작성자</td>

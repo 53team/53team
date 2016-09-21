@@ -3,6 +3,8 @@ package study.action;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import study.bean.FreeboardDAO;
 import study.bean.FreeboardVO;
 
@@ -17,7 +19,9 @@ public class ContentAction implements CommandAction{
 		try {
 			FreeboardDAO dao = FreeboardDAO.getInstance();
 			FreeboardVO vo = dao.getDataDetail(num); 
-			
+			HttpSession session = request.getSession();
+			String sid = (String)session.getAttribute("sid");
+			request.setAttribute("sid", sid);
 			request.setAttribute("num", vo.getNum());
 			request.setAttribute("writer", vo.getWriter());
 			request.setAttribute("subject", vo.getSubject());

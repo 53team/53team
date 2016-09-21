@@ -11,7 +11,7 @@
 
 <c:if test="${ check == 0 }">
    <script type="text/javascript">
-      alert("글 작성자가 다릅니다.");
+      alert("다시 입력해주십시오.");
       history.go(-1);
    </script>
 </c:if>
