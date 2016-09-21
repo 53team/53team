@@ -11,12 +11,15 @@
 <div align="center">
 <form action = "writePro.do" method="post" name = "writeform" onsubmit="return writeSave()">
 	<input type="hidden" name="num" value="${num}">
-	<input type="hidden" name ="writer" value="${sid }">
 	<table width="400" border="1" cellspacing="0'" cellpadding="0" align="center">
 		<tr>
 		   <td align = "right" colspan="2">
 		   <a href = "list.do"> 글목록 보기</a>
 		   </td>
+		</tr>
+		<tr>
+		   <td width="70" align = "center"> 이  름</td>
+		   <td width="330"><input type="text" size= "10" maxlength="10" name ="writer"></td>
 		</tr>
 		<tr>
 		   <td width="70" align = "center"> 제  목</td>

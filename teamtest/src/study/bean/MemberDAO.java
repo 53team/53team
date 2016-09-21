@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import study.util.CloseUtil;
-
 public class MemberDAO {
 	private static MemberDAO instance = new MemberDAO();
     
@@ -41,9 +39,6 @@ public class MemberDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			CloseUtil.close(pstmt);
-			CloseUtil.close(conn);
 		}
     }
     
@@ -82,10 +77,6 @@ public class MemberDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			CloseUtil.close(rs);
-			CloseUtil.close(pstmt);
-			CloseUtil.close(conn);
 		}
     	return result;
     }

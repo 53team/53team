@@ -3,6 +3,7 @@ package study.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.oreilly.servlet.DaemonHttpServlet;
 import study.bean.MemberDAO;
 import study.bean.MemberVO;
 
@@ -22,7 +23,7 @@ public class LoginProAction implements CommandAction {
 		
 		request.setAttribute("result", result);
 		
-		if(result == 1) {
+		if(result==1) {
 			HttpSession session=request.getSession();
 			session.setAttribute("sid", request.getParameter("id"));
 		}
