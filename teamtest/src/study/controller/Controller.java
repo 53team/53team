@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import study.action.CommandAction;
-
 public class Controller extends HttpServlet {
 	private Map commandMap = new HashMap<>();
 
@@ -88,7 +86,7 @@ public class Controller extends HttpServlet {
 		}
 		
 		request.setAttribute("CONTENT", view);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/template/template.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/temp/template.jsp");
 		dispatcher.forward(request, response);
 		
 	}
