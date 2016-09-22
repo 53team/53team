@@ -81,7 +81,7 @@ public class FreeboardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null; 
-		List list = null;
+		List<FreeboardVO> list = null;
 		StringBuffer sb = new StringBuffer();
 		try {
 			conn = getConnection();
@@ -91,7 +91,7 @@ public class FreeboardDAO {
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) { 
-				list = new ArrayList();
+				list = new ArrayList<FreeboardVO>();
 				
 				do {
 					FreeboardVO vo = new FreeboardVO();

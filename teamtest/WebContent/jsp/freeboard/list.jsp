@@ -37,23 +37,24 @@
 				<td align="center" width="50">작성자</td>
 				<td align="center" width="50">작성날짜</td>
 				<td align="center" width="50">조회수</td>
+			</tr>
 			<c:forEach var="list" items="${list }">
 			<tr height="30" >
 				<td align="center" width="50">
-				<c:out value="${number }"/>
-				<c:set var="number" value="${number - 1 }"/>
+					<c:out value="${number }"/>
+					<c:set var="number" value="${number - 1 }"/>
 				</td>
 				<td width="250">
-				<a href="content.do?num=${list.num }&pageNum=${currentPage }">${list.subject }</a>
-			<c:if test="${list.readnum >= 3}">
-			 	<img src="/jsp/freeboard/images/hot.gif">
-			</c:if>
-			</td>
-			<td align="center"  width="100">
-			<a> ${ list.writer } </a>
-			</td>
-			<td align="center"  width="150">${ list.reg_date }</td>
-			<td align="center"  width="150">${ list.readnum }</td>
+					<a href="content.do?num=${list.num }&pageNum=${currentPage }">${list.subject }</a>
+					<c:if test="${list.readnum >= 3}">
+					 	<img src="/jsp/freeboard/images/hot.gif">
+					</c:if>
+				</td>
+				<td align="center"  width="100">
+					${ list.writer }
+				</td>
+				<td align="center"  width="150">${ list.reg_date }</td>
+				<td align="center"  width="150">${ list.readnum }</td>
 			</tr>
 			</c:forEach>
 		</table>
