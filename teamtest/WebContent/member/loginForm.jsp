@@ -13,8 +13,8 @@
 	<input type="text" id="id" name="id" placeholder="최대 12자 영문/숫자" maxlength="12" autofocus required><br>
 	<label for="pwd">비밀번호</label>
 	<input type="password" id="pwd" name="pwd" placeholder="최대 12자 영문/숫자" maxlength="12" required><br>
-	<input type="submit" value="로그인"><br>
-	<a href="registerForm.do">회원 가입</a>
+	<input type="submit" value="로그인">
+	<input type="button" value="회원가입" onclick="document.location.href='registerForm.do'">
 	</form>
 </div>
 </body>

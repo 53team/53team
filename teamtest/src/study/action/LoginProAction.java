@@ -23,7 +23,7 @@ public class LoginProAction implements CommandAction {
 		request.setAttribute("result", result);
 		
 		if(result == 1) {
-			HttpSession session=request.getSession();
+			HttpSession session = request.getSession();
 			session.setAttribute("sid", request.getParameter("id"));
 		}
 		

@@ -31,11 +31,9 @@
 		</tr>
 		<tr height ="30">
 			<td colspan="4" align="right">
-			<c:if test="${sid == writer }">
+			<c:if test="${sid == writer || sid == 'admin'}">
 			<input type="button" value="글수정" onclick="document.location.href='updateForm.do?num=${num}&pageNum=${pageNum}'"> 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="글삭제" onclick="document.location.href='deleteForm.do?num=${num}&pageNum=${pageNum}'">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 			<input type = "button" value="목록 보기" onclick="document.location.href='list.do?pageNum=${pageNum}'"> 
 			</td>

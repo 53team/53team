@@ -19,7 +19,7 @@ public class WriteFormAction implements CommandAction {
 		}
 		HttpSession session=request.getSession();
 		String sid = (String)session.getAttribute("sid");
-	      
+
 		request.setAttribute("sid", sid);
 		request.setAttribute("num", new Integer(num));
 		

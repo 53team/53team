@@ -103,6 +103,9 @@ $(function(){
     <c:if test="${sid != null}"> 
     <li><a href="/teamtest/logout.do">로그아웃</a></li>
     </c:if>
+    <c:if test="${sid == 'admin'}">
+    <li><a href="#">회원관리</a></li>
+    </c:if>
   </ul>
 </div>
 </body>
