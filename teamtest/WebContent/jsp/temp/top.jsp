@@ -102,6 +102,12 @@ $(function(){
     </c:if>
     <c:if test="${sid != null}"> 
     <li><a href="/teamtest/logout.do">로그아웃</a></li>
+    <li><a href="#">내정보관리</a>
+      <ul>
+        <li><a href="/teamtest/modifyForm.do">정보수정</a></li>
+        <li><a href="/teamtest/withdrawalForm.do">회원탈퇴</a></li>
+      </ul>
+    </li>
     </c:if>
     <c:if test="${sid == 'admin'}">
     <li><a href="#">회원관리</a></li>

@@ -9,10 +9,17 @@
 </head>
 <body>
 	<div align="center">
-		<b>글 목록(전체 글 : ${count})</b>
+		<b>자유게시판(전체 글 : ${count})</b>
 		<table width="700">
 			<tr>
-				<td align="right"><a href="writeForm.do">글쓰기</a></td>
+				<td align="right">
+				<c:if test="${sid != null }">
+				<a href="writeForm.do">글쓰기</a>
+				</c:if>
+				<c:if test="${sid == null }">
+				<a href="loginForm.do">글쓰기</a>
+				</c:if>
+				</td>
 			</tr>
 			</table>
 		<c:if test="${count == 0 }">

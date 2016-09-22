@@ -89,4 +89,49 @@ public class MemberDAO {
 		}
     	return result;
     }
+    public void updateMember(MemberVO vo, String sid) {
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	String sql=null;
+    	
+    	try {
+			conn=getConnection();
+			sql="update study_member set pwd=?, name=?, phone=?, location=? where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getPhone());
+			pstmt.setString(4, vo.getLocation());
+			pstmt.setString(5, sid);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			CloseUtil.close(pstmt);
+			CloseUtil.close(conn);
+		}
+    	
+    }//updateMember end
+    
+    public void deleteMember(MemberVO vo, String sid) {
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	String sql=null;
+    	
+    	try {
+			conn=getConnection();
+			sql="delete from Study_Member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			pstmt.executeUpdate();
+    		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			CloseUtil.close(pstmt);
+			CloseUtil.close(conn);
+		}
+    	
+    }//deleteMember end
 }
