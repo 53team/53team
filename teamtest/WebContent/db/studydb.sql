@@ -62,4 +62,6 @@ create sequence replyboard_num
 
 insert into study_freeboard(num, writer, subject, content, reg_date) values (freeboard_num.nextVal, 's', 'fir', 'success!!!!!', '2016-09-20'); 
 select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=1 and r<=12
+
 select * from (select rownum r, id, pwd, phone, location, reg_date from study_member) where r>=1 and r<=10 order by reg_date desc
+select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_freeboard where subject like '%헤%' order by num desc)) where r>=1 and r<=10;

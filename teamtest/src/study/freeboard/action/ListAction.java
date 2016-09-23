@@ -1,52 +1,61 @@
 package study.freeboard.action;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
+import study.freeboard.bean.FreeboardVO;
+import study.freeboard.bean.SearchVO;
 
-public class ListAction implements CommandAction {
+public class ListAction implements CommandAction{
+    public String process(HttpServletRequest request,HttpServletResponse response) throws Exception {
+    request.setCharacterEncoding("utf-8");
 
-	@Override
-	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int pageSize = 10;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String pageNum = request.getParameter("pageNum");
-		
-		if(pageNum == null) pageNum = "1";
-		
-		int currentPage = Integer.parseInt(pageNum);
-		int count = 0;
-		int number = 0;
-		
-		List list = null;
-		
-		FreeboardDAO dao = FreeboardDAO.getInstance(); 
-		count = dao.getListAllCount(); 
-		int startRow = count-((currentPage-1) * pageSize) -9; 
-		int endRow = startRow + 9;
-		
-		if(count > 0) {
-			list = dao.getSelectAll(startRow, endRow); 
-		} else {
-			list = Collections.EMPTY_LIST;
-		}
-		number = count - (currentPage - 1) * pageSize;
+    String keyField =request.getParameter("keyField");
+    String keyWord =request.getParameter("keyWord");
+    
+    if(keyField==null){
+        keyField="";
+    }
+    if(keyWord==null){
+        keyWord="";
+    }    
+    
+    String pageNum =request.getParameter("pageNum");
+    
+    if(pageNum ==null){
+        pageNum = "1";
+    }    
+    
+    int pageSize = 10;
+    int currentPage = Integer.parseInt(pageNum);
+    int startRow =(currentPage-1)*pageSize +1;
+    int endRow =currentPage * pageSize;
+    int count = 0;
+    int number = 0;
+    
+    List<FreeboardVO> list =null;
+    FreeboardDAO dao = FreeboardDAO.getInstance();
+    count =dao.getListAllCount(keyField,keyWord);
+    
+    if(count>0){
+        list = dao.getSelectAll(startRow, endRow, keyField, keyWord);
+    }
+    //가짜 글번호
+    number=count-(currentPage-1)*pageSize;
 
-		request.setAttribute("currentPage", new Integer(currentPage));
-		request.setAttribute("startRow", new Integer(startRow));
-		request.setAttribute("endRow", new Integer(endRow));
-		request.setAttribute("count", new Integer(count));
-		request.setAttribute("number", new Integer(number));
-		request.setAttribute("pageSize", new Integer(pageSize));
-		request.setAttribute("list", list);
-		System.out.println("number"+number);
-		return "/jsp/freeboard/list.jsp";
-	}
+    SearchVO vo= new SearchVO();
+    vo.setCount(count);
+    vo.setCurrentPage(currentPage);
+    vo.setNumber(number);
+    vo.setPageSize(pageSize);    
+    vo.setKeyField(keyField);    
+    vo.setKeyWord(keyWord);    
+    
+    request.setAttribute("vo", vo);
+    request.setAttribute("list", list);
 
+    return "/jsp/freeboard/list.jsp";
+    }
 }
