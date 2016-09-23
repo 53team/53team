@@ -90,7 +90,8 @@ $(function(){
     </li>
     <li><a href="#">공부방</a>
    	  <ul>
-        <li><a href="#">모집글 올리기</a></li>
+   	  	<li><a href="#">모집글</a></li>
+        <li><a href="#">모집글 작성</a></li>
         <li><a href="#">모집글 검색</a></li>
       </ul>
     </li>
@@ -110,7 +111,7 @@ $(function(){
     </li>
     </c:if>
     <c:if test="${sid == 'admin'}">
-    <li><a href="#">회원관리</a></li>
+    <li><a href="memberList.do">회원관리</a></li>
     </c:if>
   </ul>
 </div>

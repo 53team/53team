@@ -3,9 +3,11 @@ package study.member.bean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 import study.util.CloseUtil;
 
 public class MemberDAO {
@@ -89,6 +91,32 @@ public class MemberDAO {
 		}
     	return result;
     }
+    public MemberVO updateMember(String sid) {
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      MemberVO vo = new MemberVO();
+
+	      try {
+	         conn = getConnection();
+	         pstmt = conn.prepareStatement("select * from study_member where id = ?");
+	         pstmt.setString(1, sid);
+	         rs = pstmt.executeQuery();
+
+	         if (rs.next()) {
+	            vo.setName(rs.getString("name"));
+	            vo.setPhone(rs.getString("phone"));
+	            vo.setLocation(rs.getString("location"));
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         CloseUtil.close(conn);
+	         CloseUtil.close(rs);
+	         CloseUtil.close(pstmt);
+	      }
+	      return vo;
+	   }
     public void updateMember(MemberVO vo, String sid) {
     	Connection conn=null;
     	PreparedStatement pstmt=null;
@@ -132,6 +160,65 @@ public class MemberDAO {
 			CloseUtil.close(pstmt);
 			CloseUtil.close(conn);
 		}
-    	
     }//deleteMember end
+    
+    public int getListAllCount() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        
+        try {
+           conn = getConnection();
+           pstmt = conn.prepareStatement("select count(*) from study_member" );
+           rs = pstmt.executeQuery();
+           
+           if(rs.next()) count = rs.getInt(1);
+           
+        } catch (Exception e) {
+           e.printStackTrace();
+        } finally {
+           CloseUtil.close(rs);
+           CloseUtil.close(pstmt);
+           CloseUtil.close(conn);
+        }
+        return count;
+     } // list(1)
+     
+     public List<MemberVO> getSelectAll(int startRow, int endRow) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null; 
+        List list = null;
+        StringBuffer sb = new StringBuffer();
+        try {
+           conn = getConnection();
+           sb.append("select * from (select rownum r, id, pwd, name, phone, location, reg_date from study_member) where r>=? and r<=? order by reg_date desc");
+           pstmt = conn.prepareStatement(sb.toString());
+           pstmt.setInt(1, startRow);
+           pstmt.setInt(2, endRow);
+           rs = pstmt.executeQuery();
+           if(rs.next()) { 
+              list = new ArrayList();
+              
+              do {
+                 MemberVO vo = new MemberVO();
+                 vo.setId(rs.getString("id"));
+                 vo.setPwd(rs.getString("pwd"));
+                 vo.setName(rs.getString("name"));
+                 vo.setPhone(rs.getString("phone"));
+                 vo.setLocation(rs.getString("location"));
+                 vo.setReg_date(rs.getTimestamp("reg_date"));
+                 list.add(vo);
+              } while(rs.next());
+           }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }  finally {
+           CloseUtil.close(rs);
+           CloseUtil.close(pstmt);
+           CloseUtil.close(conn);
+        }
+        return list;
+     } // list(2)
 }

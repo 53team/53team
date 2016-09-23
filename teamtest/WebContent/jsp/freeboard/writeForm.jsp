@@ -11,7 +11,12 @@
 <div align="center">
 <form action = "writePro.do" method="post" name = "writeform" onsubmit="return writeSave()">
 	<input type="hidden" name="num" value="${num}">
-	<input type="hidden" name ="writer" value="${sid }">
+	<c:if test="${sid == 'admin' }">
+	<input type="hidden" name="writer" value="${'관리자'}">
+	</c:if>
+	<c:if test="${sid != 'admin' }">
+	<input type="hidden" name="writer" value="${sid }">
+	</c:if>
 	<table width="400" border="1" cellspacing="0'" cellpadding="0" align="center">
 		<tr>
 		   <td align = "right" colspan="2">

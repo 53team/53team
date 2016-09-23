@@ -75,7 +75,7 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);
 		}
 		return count;
-	} // list(1)
+	} // list(총갯수)
 	
 	public List<FreeboardVO> getSelectAll(int startRow, int endRow) {
 		Connection conn = null;
@@ -112,7 +112,7 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);
 		}
 		return list;
-	} // list(2)
+	} // list(출력)
 
 	public FreeboardVO getDataDetail(int num) {
 		Connection conn = null;
@@ -149,6 +149,7 @@ public class FreeboardDAO {
 		}
 		return vo;
 	} //content
+	
 	public FreeboardVO update(int num) {
 	      Connection conn = null;
 	      PreparedStatement pstmt = null;
@@ -228,7 +229,7 @@ public class FreeboardDAO {
 	      }
 
 	      return result;
-	   } // update(2) 수정 로직
+	   } // update(2) 수정
 	   
 	   public void delete(int num) {
 		      Connection conn = null;
@@ -245,5 +246,7 @@ public class FreeboardDAO {
 		         CloseUtil.close(pstmt);
 		         CloseUtil.close(conn);
 		      }
-	   }
+	   } // 삭제
+	   
+	   	
 }

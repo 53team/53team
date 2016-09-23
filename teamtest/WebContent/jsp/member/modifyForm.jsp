@@ -36,11 +36,11 @@ $(document).ready(function(){
 	<input type="password" id="repwd" name="repwd" placeholder="비밀번호 확인" maxlength="12" required>
 	<font id="check" color="red"></font><br>
 	<label for="name">이름</label>
-	<input type="text" id="name" name="name" required><br>
+	<input type="text" id="name" name="name" value="${name }" required><br>
 	<label for="phone">전화번호</label>
-	<input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required><br>
+	<input type="tel" id="phone" name="phone" value="${phone }" placeholder="010-0000-0000" required><br>
 	<label for="location">지역</label>
-	<input type="text" id="location" name="location" placeholder="서울" required><br>
+	<input type="text" id="location" name="location" value="${location }" placeholder="서울" required><br>
 	<input type="submit" value="회원정보 수정">
 	<input type="reset" value="다시쓰기">
 	<input type="button" value="회원탈퇴" onclick="document.location.href='memberDeleteForm.do'">
