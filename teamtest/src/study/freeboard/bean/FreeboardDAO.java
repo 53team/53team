@@ -53,7 +53,7 @@ public class FreeboardDAO {
 			CloseUtil.close(conn);	
 		}	
 	} // write
-	///////////////////
+
 	public int getListAllCount(String keyField,String keyWord)throws Exception{
         Connection conn= null;
         PreparedStatement pstmt =null;
@@ -85,7 +85,6 @@ public class FreeboardDAO {
         return count;
     }
     
-    //리스트뽑기
     public List<FreeboardVO> getSelectAll(int startRow, int endRow, String keyField,String keyWord)throws Exception{
         Connection conn= null;
         PreparedStatement pstmt =null;
@@ -93,22 +92,30 @@ public class FreeboardDAO {
         List<FreeboardVO> list =null;
         String sql=null;
         
+        
         try{
             conn =getConnection();
             if(keyWord == null || "".equals(keyWord.trim())){
+            	System.out.println("여기탔음");
                 sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=? and r<=? order by reg_date desc";
                 pstmt =conn.prepareStatement(sql);            
                 pstmt.setInt(1, startRow);
                 pstmt.setInt(2, endRow);    
             }else{
-                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_freeboard where  '"+keyField+"' like ? )) where r>=? and r<=? order by reg_date desc";
+            	System.out.println("엘스탐");
+            	System.out.println(keyField);
+            	System.out.println(keyWord);
+                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_freeboard where "+keyField+" like ? )) where r>=? and r<=? order by reg_date desc";
                 pstmt =conn.prepareStatement(sql);    
+                System.out.println(startRow);
+                System.out.println(endRow);
                 pstmt.setString(1, "%"+keyWord+"%");
                 pstmt.setInt(2, startRow);
                 pstmt.setInt(3, endRow);
             }
             rs = pstmt.executeQuery();
             if(rs.next()){
+            	System.out.println("이프탐");
                 list= new ArrayList<FreeboardVO>();                
                 do{
                     FreeboardVO vo =new FreeboardVO();
@@ -133,87 +140,7 @@ public class FreeboardDAO {
         }        
         return list;
     }
-    ///////////////////////
-	/*public int getListAllCount(String keyWord, String keyField) throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int count = 0;
-		
-		try {
-			conn = getConnection();
-			if (keyWord == null || "".equals(keyWord.trim())){
-				pstmt = conn.prepareStatement("select count(*) from study_freeboard");
-			} else {
-				pstmt = conn.prepareStatement("select count(*) from study_freeboard where " + keyField + " like ?");
-				pstmt.setString(1, "%" + keyWord + "%");
-			}
-			rs = pstmt.executeQuery();
-			if(rs.next()) { 
-				count = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			CloseUtil.close(rs);
-			CloseUtil.close(pstmt);
-			CloseUtil.close(conn);
-		}
-		return count;
-	} // list(총갯수)
-	
-	public List<FreeboardVO> getSelectAll(int startRow, int endRow, String keyField, String keyWord) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null; 
-		List<FreeboardVO> list = null;
-		StringBuffer sb = new StringBuffer();
-		
-		try {
-			conn = getConnection();
-			
-			if(keyWord == null || "".equals(keyWord.trim())) {
-				sb.append("select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard)");
-				sb.append(" where r>=? and r<=? order by num desc");
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
-			} else {
-				sb.append("select * from (select rownum r, num, writer, subject, content, reg_date, readnum from ");
-				sb.append("(select * from study_freeboard where ? like '%?%' order by num desc)) where r>=? and r<=?");
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setString(1, keyField);
-				pstmt.setString(2, keyWord);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
-			}
-			
-			rs = pstmt.executeQuery();
-			if(rs.next()) { 
-				list = new ArrayList<FreeboardVO>();
-				do {
-					FreeboardVO vo = new FreeboardVO();
-					vo.setNum(rs.getInt("num"));
-					vo.setWriter(rs.getString("writer"));
-					vo.setSubject(rs.getString("subject"));
-					vo.setReg_date(rs.getTimestamp("reg_date"));
-					vo.setReadnum(rs.getInt("readnum"));
-					vo.setContent(rs.getString("content"));
-					list.add(vo);
-				} while(rs.next());
-			} else {
-				list = Collections.EMPTY_LIST;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}  finally {
-			CloseUtil.close(rs);
-			CloseUtil.close(pstmt);
-			CloseUtil.close(conn);
-		}
-		return list;
-	} // list(출력)
-*/
+
 	public FreeboardVO getDataDetail(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

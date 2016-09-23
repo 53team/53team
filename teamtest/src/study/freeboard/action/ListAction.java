@@ -14,6 +14,7 @@ public class ListAction implements CommandAction{
 
     String keyField =request.getParameter("keyField");
     String keyWord =request.getParameter("keyWord");
+    String pageNum =request.getParameter("pageNum");
     
     if(keyField==null){
         keyField="";
@@ -21,8 +22,6 @@ public class ListAction implements CommandAction{
     if(keyWord==null){
         keyWord="";
     }    
-    
-    String pageNum =request.getParameter("pageNum");
     
     if(pageNum ==null){
         pageNum = "1";
@@ -42,7 +41,6 @@ public class ListAction implements CommandAction{
     if(count>0){
         list = dao.getSelectAll(startRow, endRow, keyField, keyWord);
     }
-    //가짜 글번호
     number=count-(currentPage-1)*pageSize;
 
     SearchVO vo= new SearchVO();
