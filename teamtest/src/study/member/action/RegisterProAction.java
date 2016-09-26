@@ -14,6 +14,11 @@ public class RegisterProAction implements CommandAction {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
+		
+		String PWD=request.getParameter("pwd");
+		String rePWD=request.getParameter("repwd");
+		
+		if(PWD.equals(rePWD)) {
 		MemberVO vo = new MemberVO();
 		vo.setId(request.getParameter("id"));
 		vo.setPwd(request.getParameter("pwd"));
@@ -24,7 +29,12 @@ public class RegisterProAction implements CommandAction {
 		
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.registerMember(vo);
-			
+		
+		request.setAttribute("result", "1");
+		} else {
+			request.setAttribute("result", "0");
+		}
+		
 		return "/jsp/member/registerPro.jsp";
 	}
 

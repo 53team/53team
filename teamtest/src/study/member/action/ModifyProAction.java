@@ -11,9 +11,14 @@ public class ModifyProAction implements CommandAction {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		request.setCharacterEncoding("UTF-8");
 		
+		int result=0;
+		
+		String PWD=request.getParameter("pwd");
+		String rePWD=request.getParameter("repwd");
+		
+		if(PWD.equals(rePWD)) {
 		MemberVO vo = new MemberVO();
 		vo.setPwd(request.getParameter("pwd"));
 		vo.setName(request.getParameter("name"));
@@ -25,6 +30,13 @@ public class ModifyProAction implements CommandAction {
 		
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.updateMember(vo, sid);
+		
+		result=1;
+		request.setAttribute("result", result);
+		} else {
+			result=0;
+			request.setAttribute("result", result);
+		}
 		
 		return "/jsp/member/modifyPro.jsp";
 	}

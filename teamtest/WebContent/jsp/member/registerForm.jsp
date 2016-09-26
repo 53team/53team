@@ -19,6 +19,25 @@ $(document).ready(function(){
 		    $('#check').html("암호가 다릅니다. 다시 입력해주세요");
 		}
 	});
+	$('#result').click(function(){
+		var i={id:$('#id').val()};
+		$.ajax({
+			type:"post",
+			url:"registerIDCheck.do",
+			data:i,
+			success:function(data){
+				var str = '<p id="result">';
+	    		var loc = data.indexOf(str);
+	    		var len = str.length;
+	    		var result = data.substr(loc+len,1);
+	    		if(result=="1"){
+	    			alert("중복되는 아이디입니다");
+	    	    	$("#id").val("");
+	    	     }else if (result=="0")
+	    	  	    alert("사용할 수 있는 아이디입니다");
+			}
+		});
+	});
 });
 </script>
 </head>
@@ -26,7 +45,8 @@ $(document).ready(function(){
 <div>
 	<form action="registerPro.do" method="post">
 		<label for="id">ID</label>
-		<input type="text" id="id" name="id" placeholder="최대 12자 영문/숫자" maxlength="12" autofocus required><br>
+		<input type="text" id="id" name="id" placeholder="최대 12자 영문/숫자" maxlength="12" autofocus required>
+		<input type="button" id="result" value="ID중복확인"><br>
 		<label for="pwd">비밀번호</label>
 		<input type="password" id="pwd" name="pwd" placeholder="최대 12자 영문/숫자" maxlength="12" required><br>
 		<label for="repwd">비밀번호 확인</label>

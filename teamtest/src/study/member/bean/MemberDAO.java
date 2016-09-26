@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+//import study.crypt.BCrypt;
 import study.util.CloseUtil;
 
 public class MemberDAO {
@@ -28,13 +29,19 @@ public class MemberDAO {
     	Connection conn=null;
     	PreparedStatement pstmt=null;
     	String sql=null;
+    	String originalPWD=null;
+    	String cryptPWD=null;
     	
     	try {
     		conn=getConnection();
+    		
+    		originalPWD=vo.getPwd();
+    		//cryptPWD=BCrypt.hashpw(originalPWD , BCrypt.gensalt());
+    		
 			sql="insert into study_member(ID, PWD, name, phone, location, reg_date) values(?, ?, ?, ?, ?, ?)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
-			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(2, originalPWD);
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getPhone());
 			pstmt.setString(5, vo.getLocation());
@@ -47,9 +54,42 @@ public class MemberDAO {
 			CloseUtil.close(pstmt);
 			CloseUtil.close(conn);
 		}
-    }
+    } // 회원가입 
     
-    public int loginCheck(MemberVO vo) {
+    public int registerCheck(MemberVO vo) {//2
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	ResultSet rs=null;
+    	String sql=null;
+    	int result=0;
+    	
+    	try {
+			conn=getConnection();
+			sql="select id from study_member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getId());
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				//중복 아이디 있음
+				result=1;
+			} else {
+				//중복 아이디 없음
+				result=0;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			CloseUtil.close(rs);
+			CloseUtil.close(pstmt);
+			CloseUtil.close(conn);
+		}
+    	
+    	return result;
+    } // 회원가입 검열
+    
+    public int loginCheck(MemberVO vo) {//3
     	Connection conn=null;
     	PreparedStatement pstmt=null;
     	ResultSet rs=null;
@@ -57,7 +97,8 @@ public class MemberDAO {
     	
     	String inputID=vo.getId();
     	String inputPWD=vo.getPwd();
-    	String DBPWD=null;
+    	
+
     	int result=0;
     	
     	try {
@@ -68,8 +109,8 @@ public class MemberDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()){
-					DBPWD=rs.getString("pwd");
-					
+					String DBPWD=rs.getString("pwd");
+				//if(BCrypt.checkpw(inputPWD, DBPWD)){
 				if(inputPWD.equals(DBPWD)){
 					//로그인 성공
 					result=1;
@@ -90,8 +131,9 @@ public class MemberDAO {
 			CloseUtil.close(conn);
 		}
     	return result;
-    }
-    public MemberVO updateMember(String sid) {
+    } // 로그인 검열
+    
+    public MemberVO updateMember(String sid) {//3
 	      Connection conn = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
@@ -116,8 +158,9 @@ public class MemberDAO {
 	         CloseUtil.close(pstmt);
 	      }
 	      return vo;
-	   }
-    public void updateMember(MemberVO vo, String sid) {
+	   } // 회원수정 - 기존정보 받아오기
+    
+    public void updateMember(MemberVO vo, String sid) {//4
     	Connection conn=null;
     	PreparedStatement pstmt=null;
     	String sql=null;
@@ -140,19 +183,37 @@ public class MemberDAO {
 			CloseUtil.close(conn);
 		}
     	
-    }//updateMember end
+    }// 회원수정 - 정보 수정적용
     
-    public void deleteMember(MemberVO vo, String sid) {
+    public int updateCheck(MemberVO vo, String sid) {//4
     	Connection conn=null;
     	PreparedStatement pstmt=null;
+    	ResultSet rs=null;
     	String sql=null;
+    	String inputPWD=null;
+    	String DBPWD=null;
+    	int result=0;
+    	
+    	inputPWD=vo.getPwd();
     	
     	try {
 			conn=getConnection();
-			sql="delete from Study_Member where id=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, sid);
-			pstmt.executeUpdate();
+    		sql="select pwd from study_member where id=?";
+    		pstmt=conn.prepareStatement(sql);
+    		pstmt.setString(1, sid);
+    		rs=pstmt.executeQuery();
+    		
+    		if(rs.next()){
+    			DBPWD=rs.getString("pwd");
+    			//if(BCrypt.checkpw(inputPWD, DBPWD)){
+    			if(inputPWD.equals(DBPWD)) {
+    				//패스워드 확인 성공
+    				result=1;
+    			} else {
+    				//패스워드 틀림
+    				result=0;
+    			}
+    		}//if end
     		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,9 +221,52 @@ public class MemberDAO {
 			CloseUtil.close(pstmt);
 			CloseUtil.close(conn);
 		}
-    }//deleteMember end
+    	return result;
+    } // 회원수정 - 검열
     
-    public int getListAllCount() {
+    public int deleteMember(MemberVO vo, String sid) {//6
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	ResultSet rs=null;
+    	String inputPWD=null;
+    	String DBPWD=null;
+    	String sql=null;
+    	int result=0;
+    	
+    	inputPWD=vo.getPwd();
+    	
+    	try {
+			conn=getConnection();
+			sql="select pwd from study_member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sid);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				DBPWD=rs.getString("pwd");
+				//if(BCrypt.checkpw(inputPWD, DBPWD)) {
+				if(inputPWD.equals(DBPWD)) {
+				sql="delete from Study_Member where id=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, sid);
+				pstmt.executeUpdate();
+				result=1;
+				} else {
+				result=0;
+				}
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			CloseUtil.close(rs);
+			CloseUtil.close(pstmt);
+			CloseUtil.close(conn);
+		}
+    	return result;
+    }//회원탈퇴
+    
+    public int getListAllCount() {//6
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -183,9 +287,9 @@ public class MemberDAO {
            CloseUtil.close(conn);
         }
         return count;
-     } // list(1)
+     } //총 회원수
      
-     public List<MemberVO> getSelectAll(int startRow, int endRow) {
+     public List<MemberVO> getSelectAll(int startRow, int endRow) {//7
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null; 
@@ -220,5 +324,5 @@ public class MemberDAO {
            CloseUtil.close(conn);
         }
         return list;
-     } // list(2)
+     } //회원 목록
 }
