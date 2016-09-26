@@ -111,7 +111,7 @@ $(function(){
     </li>
     </c:if>
     <c:if test="${sid == 'admin'}">
-    <li><a href="memberList.do">회원관리</a></li>
+    <li><a href="memberList.do">회원목록</a></li>
     </c:if>
   </ul>
 </div>

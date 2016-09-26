@@ -1,5 +1,6 @@
 package study.freeboard.action;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ public class ListAction implements CommandAction{
     String keyField =request.getParameter("keyField");
     String keyWord =request.getParameter("keyWord");
     String pageNum =request.getParameter("pageNum");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     
     if(keyField==null){
         keyField="";
@@ -27,21 +29,22 @@ public class ListAction implements CommandAction{
         pageNum = "1";
     }    
     
+    FreeboardDAO dao = FreeboardDAO.getInstance(); 
     int pageSize = 10;
     int currentPage = Integer.parseInt(pageNum);
-    int startRow =(currentPage-1)*pageSize +1;
-    int endRow =currentPage * pageSize;
-    int count = 0;
+    int count = dao.getListAllCount(keyField, keyWord);
+    int startRow = count - ((currentPage-1) * pageSize) -9;
+    int endRow = startRow + 9;
     int number = 0;
     
     List<FreeboardVO> list =null;
-    FreeboardDAO dao = FreeboardDAO.getInstance();
+
     count =dao.getListAllCount(keyField,keyWord);
     
     if(count>0){
         list = dao.getSelectAll(startRow, endRow, keyField, keyWord);
     }
-    number=count-(currentPage-1)*pageSize;
+    number = count - (currentPage - 1) * pageSize;
 
     SearchVO vo= new SearchVO();
     vo.setCount(count);

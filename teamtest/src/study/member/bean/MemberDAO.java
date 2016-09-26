@@ -297,7 +297,7 @@ public class MemberDAO {
         StringBuffer sb = new StringBuffer();
         try {
            conn = getConnection();
-           sb.append("select * from (select rownum r, id, pwd, name, phone, location, reg_date from study_member) where r>=? and r<=? order by reg_date desc");
+           sb.append("select * from (select rownum r, id, pwd, name, phone, location, reg_date from study_member) where r>=? and r<=? and id not like 'admin'order by reg_date desc");
            pstmt = conn.prepareStatement(sb.toString());
            pstmt.setInt(1, startRow);
            pstmt.setInt(2, endRow);
@@ -325,4 +325,22 @@ public class MemberDAO {
         }
         return list;
      } //회원 목록
+     
+     public void delete(String id) {
+         Connection conn = null;
+         PreparedStatement pstmt = null;
+
+         try {
+            conn = getConnection();
+           pstmt = conn.prepareStatement("delete from study_member where id = ?");
+           pstmt.setString(1, id);
+
+           pstmt.executeUpdate();
+         } catch (Exception e) {
+            e.printStackTrace();
+         } finally {
+            CloseUtil.close(pstmt);
+            CloseUtil.close(conn);
+         }
+    }
 }

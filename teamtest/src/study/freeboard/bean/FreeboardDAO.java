@@ -276,5 +276,21 @@ public class FreeboardDAO {
 		      }
 	   } // 삭제
 	   
-	   	
+	   public void delete(String num) {
+	         Connection conn = null;
+	         PreparedStatement pstmt = null;
+
+	         try {
+	            conn = getConnection();
+	           pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
+	           pstmt.setString(1, num);
+
+	           pstmt.executeUpdate();
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         } finally {
+	            CloseUtil.close(pstmt);
+	            CloseUtil.close(conn);
+	         }
+	    }
 }

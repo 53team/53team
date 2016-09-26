@@ -11,7 +11,9 @@
 </head>
 <body>
 <c:if test="${ result==1 }">
-
+	<script type="text/javascript">
+		window.location="main.do";
+	</script>
 </c:if>
 <c:if test="${ result==0 }">
 	<script>

@@ -12,8 +12,7 @@ public class LogoutAction implements CommandAction{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.invalidate();
-//		response.sendRedirect("main.jsp");
-		return null;
+		return "/jsp/member/logout.jsp";
 	}
 
 }

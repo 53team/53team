@@ -59,9 +59,12 @@ create sequence replyboard_num
 	increment by 1
 	start with 1
 	nocache;
-
+delete from STUDY_FREEBOARD;
 insert into study_freeboard(num, writer, subject, content, reg_date) values (freeboard_num.nextVal, 's', 'fir', 'success!!!!!', '2016-09-20'); 
 select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=1 and r<=12
 select * from (select rownum r, id, pwd, phone, location, reg_date from study_member) where r>=1 and r<=10 order by reg_date desc
 select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_freeboard where subject like '%헤%' order by num desc)) where r>=1 and r<=10;
 delete from study_member;
+select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=1 and r<=10 order by reg_date desc
+select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=1 and r<=60 order by reg_date asc
+select * from (select rownum r, id, pwd, name, phone, location, reg_date from study_member) where r>=1 and r<=10 and id not like 'admin' order by reg_date desc
