@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import study.crypt.BCrypt;
 //import study.crypt.BCrypt;
 import study.util.CloseUtil;
 
@@ -25,6 +28,36 @@ public class MemberDAO {
 		return ds.getConnection();
 	} 
     
+	public int idCheck(MemberVO vo) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=null;
+		int idcheck=0;
+		
+		try {
+			conn=getConnection();
+			sql="select id from study_member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getId());
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				idcheck = -1;
+			} else {
+				idcheck = 0;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			CloseUtil.close(pstmt);
+			CloseUtil.close(conn);
+		}
+		
+		return idcheck;
+	}
+	
     public void registerMember(MemberVO vo) {
     	Connection conn=null;
     	PreparedStatement pstmt=null;
@@ -36,12 +69,12 @@ public class MemberDAO {
     		conn=getConnection();
     		
     		originalPWD=vo.getPwd();
-    		//cryptPWD=BCrypt.hashpw(originalPWD , BCrypt.gensalt());
+    		cryptPWD=BCrypt.hashpw(originalPWD , BCrypt.gensalt());
     		
 			sql="insert into study_member(ID, PWD, name, phone, location, reg_date) values(?, ?, ?, ?, ?, ?)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
-			pstmt.setString(2, originalPWD);
+			pstmt.setString(2, cryptPWD);
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getPhone());
 			pstmt.setString(5, vo.getLocation());
@@ -110,8 +143,8 @@ public class MemberDAO {
 			
 			if(rs.next()){
 					String DBPWD=rs.getString("pwd");
-				//if(BCrypt.checkpw(inputPWD, DBPWD)){
-				if(inputPWD.equals(DBPWD)){
+				if(BCrypt.checkpw(inputPWD, DBPWD)){
+				//if(inputPWD.equals(DBPWD)){
 					//로그인 성공
 					result=1;
 				} else {
@@ -205,8 +238,8 @@ public class MemberDAO {
     		
     		if(rs.next()){
     			DBPWD=rs.getString("pwd");
-    			//if(BCrypt.checkpw(inputPWD, DBPWD)){
-    			if(inputPWD.equals(DBPWD)) {
+    			if(BCrypt.checkpw(inputPWD, DBPWD)){
+    			//if(inputPWD.equals(DBPWD)) {
     				//패스워드 확인 성공
     				result=1;
     			} else {
@@ -244,8 +277,8 @@ public class MemberDAO {
 			
 			if(rs.next()){
 				DBPWD=rs.getString("pwd");
-				//if(BCrypt.checkpw(inputPWD, DBPWD)) {
-				if(inputPWD.equals(DBPWD)) {
+				if(BCrypt.checkpw(inputPWD, DBPWD)) {
+				//if(inputPWD.equals(DBPWD)) {
 				sql="delete from Study_Member where id=?";
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1, sid);
@@ -293,8 +326,9 @@ public class MemberDAO {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null; 
-        List list = null;
+        List<MemberVO> list = null;
         StringBuffer sb = new StringBuffer();
+        
         try {
            conn = getConnection();
            sb.append("select * from (select rownum r, id, pwd, name, phone, location, reg_date from study_member) where r>=? and r<=? and id not like 'admin'order by reg_date desc");
@@ -303,8 +337,7 @@ public class MemberDAO {
            pstmt.setInt(2, endRow);
            rs = pstmt.executeQuery();
            if(rs.next()) { 
-              list = new ArrayList();
-              
+              list = new ArrayList<MemberVO>();
               do {
                  MemberVO vo = new MemberVO();
                  vo.setId(rs.getString("id"));
@@ -315,6 +348,8 @@ public class MemberDAO {
                  vo.setReg_date(rs.getTimestamp("reg_date"));
                  list.add(vo);
               } while(rs.next());
+           } else {
+        	   list = Collections.EMPTY_LIST;
            }
         } catch (Exception e) {
            e.printStackTrace();

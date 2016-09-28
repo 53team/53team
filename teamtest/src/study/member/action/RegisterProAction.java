@@ -17,23 +17,36 @@ public class RegisterProAction implements CommandAction {
 		
 		String PWD=request.getParameter("pwd");
 		String rePWD=request.getParameter("repwd");
-		
-		if(PWD.equals(rePWD)) {
-		MemberVO vo = new MemberVO();
-		vo.setId(request.getParameter("id"));
-		vo.setPwd(request.getParameter("pwd"));
-		vo.setName(request.getParameter("name"));
-		vo.setPhone(request.getParameter("phone"));
-		vo.setLocation(request.getParameter("location"));
-		vo.setReg_date(new Timestamp(System.currentTimeMillis()));
+		int idcheck = 0;	//-1은 중복, 0은 중복없음
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		dao.registerMember(vo);
+		MemberVO vo = new MemberVO();
 		
-		request.setAttribute("result", "1");
+		vo.setId(request.getParameter("id"));
+		//아이디 중복체크 메소드
+		idcheck = dao.idCheck(vo);
+		
+		if(idcheck==0){
+			if(PWD.equals(rePWD)) {
+				//아이디는 위에서 받았기때문에 또 받아올 필요는 없음
+				vo.setId(request.getParameter("id"));
+				vo.setPwd(request.getParameter("pwd"));
+				vo.setName(request.getParameter("name"));
+				vo.setPhone(request.getParameter("phone"));
+				vo.setLocation(request.getParameter("location"));
+				vo.setReg_date(new Timestamp(System.currentTimeMillis()));
+				
+				//회원등록
+				dao.registerMember(vo);
+				
+				request.setAttribute("result", "1");
+			} else {
+				request.setAttribute("result", "0");
+			}
 		} else {
-			request.setAttribute("result", "0");
+			request.setAttribute("result", idcheck);
 		}
+		
 		
 		return "/jsp/member/registerPro.jsp";
 	}

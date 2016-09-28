@@ -81,39 +81,40 @@ $(function(){
 </head>
 <body>
 <div class='menu-bar'>
-  <ul class="menu">
-    <li><a href="#">게시판</a>
-      <ul>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="/teamtest/list.do">자유게시판</a></li>
-      </ul>
-    </li>
-    <li><a href="#">공부방</a>
-   	  <ul>
-   	  	<li><a href="#">모집글</a></li>
-        <li><a href="#">모집글 작성</a></li>
-        <li><a href="#">모집글 검색</a></li>
-      </ul>
-    </li>
-    <li><a href="#">핫이슈</a></li> 
-    <li><a href="#">사이트맵</a></li>
-    <c:if test="${sid == null}">
-    <li><a href="/teamtest/loginForm.do">로그인</a></li> 
-    <li><a href="/teamtest/registerForm.do">회원가입</a></li>
-    </c:if>
-    <c:if test="${sid != null}"> 
-    <li><a href="/teamtest/logout.do">로그아웃</a></li>
-    <li><a href="#">내정보관리</a>
-      <ul>
-        <li><a href="/teamtest/modifyCheckForm.do">정보수정</a></li>
-        <li><a href="/teamtest/withdrawalForm.do">회원탈퇴</a></li>
-      </ul>
-    </li>
-    </c:if>
-    <c:if test="${sid == 'admin'}">
-    <li><a href="memberList.do">회원목록</a></li>
-    </c:if>
-  </ul>
+	<ul class="menu">
+		<li><a href="#">게시판</a>
+	    	<ul>
+	      		<li><a href="#">공지사항</a></li>
+	      		<li><a href="/teamtest/list.do">자유게시판</a></li>
+	    	</ul>
+		</li>
+		<li><a href="#">공부방</a>
+			<ul>
+				<li><a href="#">모집글</a></li>
+				<li><a href="#">모집글 작성</a></li>
+				<li><a href="#">모집글 검색</a></li>
+			</ul>
+		</li>
+		<li><a href="#">핫이슈</a></li> 
+		<li><a href="#">사이트맵</a></li>
+		<c:if test="${sid == null}">
+		<li><a href="/teamtest/loginForm.do">로그인</a></li> 
+		<li><a href="/teamtest/registerForm.do">회원가입</a></li>
+		</c:if>
+		<c:if test="${sid != null}"> 
+		<li><a href="/teamtest/logout.do">로그아웃</a></li>
+		<li><a href="#">내정보관리</a>
+			<ul>
+			    <li><a href="/teamtest/modifyCheckForm.do">정보수정</a></li>
+			    <li><a href="/teamtest/withdrawalForm.do">회원탈퇴</a></li>
+			</ul>
+		</li>
+		<li><a href="/teamtest/replyList.do">댓글 테스트</a></li>
+		</c:if>
+		<c:if test="${sid == 'admin'}">
+		<li><a href="memberList.do">회원목록</a></li>
+		</c:if>
+	</ul>
 </div>
 </body>
 </html>

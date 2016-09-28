@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
 import study.freeboard.bean.FreeboardVO;
-import study.freeboard.bean.SearchVO;
+import study.freeboard.bean.FreeboardPageVO;
 
 public class ListAction implements CommandAction{
     public String process(HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -46,12 +46,12 @@ public class ListAction implements CommandAction{
     }
     number = count - (currentPage - 1) * pageSize;
 
-    SearchVO vo= new SearchVO();
+    FreeboardPageVO vo= new FreeboardPageVO();
     vo.setCount(count);
     vo.setCurrentPage(currentPage);
     vo.setNumber(number);
-    vo.setPageSize(pageSize);    
-    vo.setKeyField(keyField);    
+    vo.setPageSize(pageSize);
+    vo.setKeyField(keyField);
     vo.setKeyWord(keyWord);    
     
     request.setAttribute("vo", vo);

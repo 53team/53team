@@ -9,7 +9,7 @@
 </head>
 <body>
 <div align="center">
-<form action = "writePro.do" method="post" name = "writeform" onsubmit="return writeSave()">
+<form action = "writePro.do" method="post" name = "writeform">
 	<input type="hidden" name="num" value="${num}">
 	<c:if test="${sid == 'admin' }">
 	<input type="hidden" name="writer" value="${'관리자'}">

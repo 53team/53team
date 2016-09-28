@@ -16,5 +16,11 @@
 	</script>
 	<meta http-equiv="Refresh" content="0; url=registerForm.do">
 </c:if>
+<c:if test="${ result==-1 }">
+	<script>
+		alert("중복된 아이디입니다. 가입 페이지로 이동합니다");
+	</script>
+	<meta http-equiv="Refresh" content="0; url=registerForm.do">
+</c:if>
 </body>
 </html>

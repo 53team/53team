@@ -1,6 +1,6 @@
 package study.freeboard.bean;
 
-public class SearchVO {
+public class FreeboardPageVO {
 	String keyField, keyWord;
 	int count, currentPage, number, pageSize;
 	
