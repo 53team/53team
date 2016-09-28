@@ -46,7 +46,7 @@ function checkDel(){
 </script>
 </head>
 <body>
-<h1 align="center">자유게시판</h1>
+<h1 align="center">공지사항</h1>
 <h5>총 ${vo.count}건</h5>
 <c:if test="${vo.count == 0}">
 	<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
@@ -59,17 +59,17 @@ function checkDel(){
 					<input type="submit" value="삭제">
 				</c:if>
 				<c:if test="${sid != null }">
-					<a href="writeForm.do"><input type="button" value="글쓰기"></a>
+					<a href="writeForm(notice).do"><input type="button" value="글쓰기"></a>
 				</c:if>
 				<c:if test="${sid == null }">
-					<a href="loginForm.do"><input type="button" value="글쓰기"></a>
+					<a href="loginForm(notice).do"><input type="button" value="글쓰기"></a>
 				</c:if>
 			</td>	
 		</tr>
 	</table>
 </c:if>
 <c:if test="${vo.count > 0}">
-	<form action="/teamtest/freeboardTest.do" name="checkbox" onsubmit="return checkDel()">
+	<form action="/teamtest/freeboardTest(notice).do" name="checkbox" onsubmit="return checkDel()">
 	<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 		<tr>
 			<c:if test="${sid == 'admin' }">
@@ -90,7 +90,7 @@ function checkDel(){
 			</td>
 			</c:if>
 		    <td align="center">${number}<c:set var="number" value="${number - 1}"/></td>
-		    <td align="left"><a href="content.do?num=${list.num}">${list.subject}</a></td>
+		    <td align="left"><a href="content(notice).do?num=${list.num}">${list.subject}</a></td>
 		    <c:if test="${list.writer == '관리자' }">
 		    <td align="center"><b>${list.writer}</b></td>
 		    </c:if>
@@ -108,10 +108,10 @@ function checkDel(){
 					<input type="submit" value="삭제">
 				</c:if>
 				<c:if test="${sid != null }">
-					<a href="writeForm.do"><input type="button" value="글쓰기"></a>
+					<a href="writeForm(notice).do"><input type="button" value="글쓰기"></a>
 				</c:if>
 				<c:if test="${sid == null }">
-					<a href="loginForm.do"><input type="button" value="글쓰기"></a>
+					<a href="loginForm(notice).do"><input type="button" value="글쓰기"></a>
 				</c:if>
 			</td>	
 		</tr>
@@ -119,7 +119,7 @@ function checkDel(){
 	</form>
 </c:if>
 	
-<form action="list.do" name="search" method="get" onsubmit="return search()">
+<form action="list(notice).do" name="search" method="get" onsubmit="return search()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
 	<tr>
@@ -136,13 +136,13 @@ function checkDel(){
 			</c:if>
 			<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
 			<c:if test="${startPage > 5 }">
-				<a href="list.do?pageNum=${startPage - pageBlock }&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[이전]</a>
+				<a href="list(notice).do?pageNum=${startPage - pageBlock }&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-				<a href="list.do?pageNum=${i}&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[${i}]</a>
+				<a href="list(notice).do?pageNum=${i}&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[${i}]</a>
 			</c:forEach>
 			<c:if test="${endPage < pageCount }">
-				<a href="list.do?pageNum=${startPage + pageBlock}&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[다음]</a>
+				<a href="list(notice).do?pageNum=${startPage + pageBlock}&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[다음]</a>
 			</c:if>
    		</td>
    	</tr>

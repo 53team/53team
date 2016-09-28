@@ -1,10 +1,10 @@
-package study.freeboard.action;
+package study.notice.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
-import study.freeboard.bean.FreeboardDAO;
-import study.freeboard.bean.FreeboardVO;
+import study.notice.bean.NoticeDAO;
+import study.notice.bean.NoticeVO;
 
 public class DeleteFormAction implements CommandAction {
 
@@ -15,8 +15,8 @@ public class DeleteFormAction implements CommandAction {
       
       try {
          
-         FreeboardDAO dao = FreeboardDAO.getInstance();
-         FreeboardVO vo = dao.update(num);
+         NoticeDAO dao = NoticeDAO.getInstance();
+         NoticeVO vo = dao.update(num);
          
          request.setAttribute("num", vo.getNum());
          request.setAttribute("writer", vo.getWriter());
@@ -28,7 +28,7 @@ public class DeleteFormAction implements CommandAction {
          e.printStackTrace();
       }
       
-      return "/jsp/freeboard/deleteForm.jsp";
+      return "/jsp/notice/deleteForm.jsp";
    }
 
 }

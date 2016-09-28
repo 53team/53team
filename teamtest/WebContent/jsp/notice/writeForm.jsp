@@ -9,7 +9,7 @@
 </head>
 <body>
 <div align="center">
-<form action = "writePro.do" method="post" name = "writeform">
+<form action = "writePro(notice).do" method="post" name = "writeform">
 	<input type="hidden" name="num" value="${num}">
 	<c:if test="${sid == 'admin' }">
 	<input type="hidden" name="writer" value="${'관리자'}">
@@ -20,7 +20,7 @@
 	<table width="400" border="1" cellspacing="0'" cellpadding="0" align="center">
 		<tr>
 		   <td align = "right" colspan="2">
-		   <a href = "list.do"> 글목록 보기</a>
+		   <a href = "list(notice).do"> 글목록 보기</a>
 		   </td>
 		</tr>
 		<tr>
@@ -35,7 +35,7 @@
 		   <td align="center" colspan="2">
 		   <input type = "submit" value = "글쓰기">
 		   <input type= "reset" value = "다시작성">
-		   <input type = "button" value = "목록보기" onclick="window.location='list.do'">
+		   <input type = "button" value = "목록보기" onclick="window.location='list(notice).do'">
 		</tr>
 	</table>
 </form>

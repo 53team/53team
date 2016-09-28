@@ -7,7 +7,7 @@
 </head> 
 <body>
 <div align="center">
-	<table width = "50%" border = "1" cellspacing = "2" cellpadding="0" align="center">
+	<table width="50%" border = "1" cellspacing = "2" cellpadding="0" align="center">
 		<tr height="30">	
 			<td align="center" width = "125">글제목</td>
 			<td align="center" width = "125" colspan="5">${subject }</td>
@@ -27,10 +27,10 @@
 		<tr height ="30">
 			<td colspan="6" align="right">
 				<c:if test="${sid == writer || sid == 'admin'}">
-					<input type="button" value="글수정" onclick="document.location.href='updateForm.do?num=${num}&pageNum=${pageNum}'"> 
-					<input type="button" value="글삭제" onclick="document.location.href='deleteForm.do?num=${num}&pageNum=${pageNum}'">
+					<input type="button" value="글수정" onclick="document.location.href='updateForm.do?num=${num}'"> 
+					<input type="button" value="글삭제" onclick="document.location.href='deleteForm.do?num=${num}'">
 				</c:if>
-					<input type = "button" value="목록 보기" onclick="document.location.href='list.do?pageNum=${pageNum}'"> 
+					<input type = "button" value="목록 보기" onclick="document.location.href='list.do?pageNum=1'"> 
 			</td>
 		</tr>
 	</table>
@@ -41,7 +41,12 @@
 		</tr>
 		<c:forEach var="list" items="${list}">
 		<tr> 
+			<c:if test="${list.re_writer == '관리자' }">
+		    <td align="center"><b>${list.re_writer}</b></td>
+		    </c:if>
+		    <c:if test="${list.re_writer != '관리자' }">
 		    <td align="center">${list.re_writer}</td>
+		    </c:if>
 		    <td align="center">${list.re_content }</td>
 			<td align="center">${list.re_reg_date }</td>
 		</tr>
@@ -51,14 +56,17 @@
 	<c:if test="${sid != null }">
 	<form action="replyPro.do" method="post" name="reply">
 		<input type="hidden" name="re_num" value="${re_num}">
-		<input type="hidden" name="re_writer" value="${sid}">
+		<c:if test="${sid == 'admin' }">
+		<input type="hidden" name="re_writer" value="${'관리자'}">
+		</c:if>
+		<c:if test="${sid != 'admin' }">
+		<input type="hidden" name="re_writer" value="${sid }">
+		</c:if>
 		<input type="hidden" name="reply_num" value="${reply_num}">
 		<table width = "50%" cellspacing = "2" cellpadding="0" align="center">
 			<tr>
 				<td align="left">
-					<textarea rows="2" cols="85" name="re_content" style="resize:none;"></textarea>
-				</td>
-				<td>
+					<input type="text" name="re_content" size="80">
 					<input type = "submit" value = "댓글작성">
 				</td>
 			</tr>
@@ -69,10 +77,8 @@
 		<table width = "50%" cellspacing = "2" cellpadding="0" align="center">
 			<tr>
 				<td align="left">
-					<textarea rows="2" cols="85" name="re_content" disabled="disabled" style="resize:none;">로그인 하셔야 합니다.</textarea>
-				</td>
-				<td>
-					<input type = "submit" value = "댓글작성">
+					<input type="text" name="re_content" size="80" disabled="disabled" value="로그인 하셔야 합니다.">
+					<input type="submit" value="댓글작성">
 				</td>
 			</tr>
 		</table>

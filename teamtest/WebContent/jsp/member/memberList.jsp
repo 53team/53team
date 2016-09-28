@@ -57,14 +57,15 @@ function checkDel(){
 			<td align="center">가입날짜</td>
 			<td align="center">지역</td>
 		</tr>
+		<c:set var="number" value="${vo.number - 1}"/>
 		<c:forEach var="list" items="${list}">
 		<tr>
 			<td align = "center">
 				<input type="checkbox"  name="check" value="${list.id}">
 			</td>
 			<td align="center">
-				<c:out value="${vo.number - 1}"/>
-				<c:set var="number" value="${vo.number - 1 }"/>
+				${number}
+				<c:set var="number" value="${number - 1}"/>
 			</td>
 			<td align="center">
 				${ list.id }

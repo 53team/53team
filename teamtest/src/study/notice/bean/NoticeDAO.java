@@ -1,4 +1,4 @@
-package study.freeboard.bean;
+package study.notice.bean;
 
 import java.sql.*;
 import java.util.*;
@@ -6,13 +6,13 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import study.util.CloseUtil;
 
-public class FreeboardDAO {	
-	private static FreeboardDAO instance = new FreeboardDAO();
-	public static FreeboardDAO getInstance() {
+public class NoticeDAO {	
+	private static NoticeDAO instance = new NoticeDAO();
+	public static NoticeDAO getInstance() {
 		return instance;
 	} // 인스턴스 생성부
 	
-	public FreeboardDAO() {	}
+	public NoticeDAO() {	}
 
 	public Connection getConnection() throws Exception {
 		InitialContext ctx = new InitialContext(); 
@@ -20,7 +20,7 @@ public class FreeboardDAO {
 		return ds.getConnection();
 	} //커넥션 풀 연결부 
 
-	public void insert(FreeboardVO vo) {
+	public void insert(NoticeVO vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -28,15 +28,15 @@ public class FreeboardDAO {
 		int number = 0;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(num) from study_freeboard");
+			pstmt = conn.prepareStatement("select max(num) from study_notice");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				number = rs.getInt(1) + 1;
 			} else {
 				number = 1;
 			}
-			sb.append("insert into study_freeboard(num, writer, subject, content, reg_date) ");
-			sb.append(" values(freeboard_num.nextVal, ?, ?, ?, ?)");
+			sb.append("insert into study_notice(num, writer, subject, content, reg_date) ");
+			sb.append(" values(notice_num.nextVal, ?, ?, ?, ?)");
 			
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setString(1, vo.getWriter());
@@ -59,15 +59,15 @@ public class FreeboardDAO {
         PreparedStatement pstmt =null;
         ResultSet rs= null;
         int count =0;
-        String sql =null;
+        String sql = null;
         
         try{
-            conn=getConnection();
+            conn = getConnection();
             if(keyWord == null || "".equals(keyWord.trim())){
-                sql="select count(*) from study_freeboard";
+                sql="select count(*) from study_notice";
                 pstmt =conn.prepareStatement(sql);
             }else{
-                sql="select count(*) from study_freeboard where "+keyField+" like ?";
+                sql="select count(*) from study_notice where "+keyField+" like ?";
                 pstmt =conn.prepareStatement(sql);
                 pstmt.setString(1, "%"+keyWord+"%");
             }
@@ -85,22 +85,22 @@ public class FreeboardDAO {
         return count;
     }
     
-    public List<FreeboardVO> getSelectAll(int startRow, int endRow, String keyField,String keyWord)throws Exception{
+    public List<NoticeVO> getSelectAll(int startRow, int endRow, String keyField, String keyWord)throws Exception{
         Connection conn= null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
-        List<FreeboardVO> list = null;
+        List<NoticeVO> list = null;
         String sql=null;
            
         try{
             conn =getConnection();
             if(keyWord == null || "".equals(keyWord.trim())){
-                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_freeboard) where r>=? and r<=? order by reg_date desc";
+                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum  from study_notice) where r>=? and r<=? order by reg_date desc";
                 pstmt =conn.prepareStatement(sql);            
                 pstmt.setInt(1, startRow);
                 pstmt.setInt(2, endRow);    
             }else{
-                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_freeboard where "+keyField+" like ? )) where r>=? and r<=? order by reg_date desc";
+                sql ="select * from (select rownum r, num, writer, subject, content, reg_date, readnum from (select * from study_notice where "+keyField+" like ? )) where r>=? and r<=? order by reg_date desc";
                 pstmt =conn.prepareStatement(sql);
                 pstmt.setString(1, "%"+keyWord+"%");
                 pstmt.setInt(2, startRow);
@@ -108,9 +108,9 @@ public class FreeboardDAO {
             }
             rs = pstmt.executeQuery();
             if(rs.next()){
-                list= new ArrayList<FreeboardVO>();                
+                list= new ArrayList<NoticeVO>();                
                 do{
-                    FreeboardVO vo =new FreeboardVO();
+                    NoticeVO vo =new NoticeVO();
                     vo.setNum(rs.getInt("num"));
                     vo.setWriter(rs.getString("writer"));
                     vo.setSubject(rs.getString("subject"));
@@ -133,25 +133,25 @@ public class FreeboardDAO {
         return list;
     }
 
-	public FreeboardVO getDataDetail(int num) {
+	public NoticeVO getDataDetail(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null; 
 		String sql = null;
-		FreeboardVO  vo = null;
+		NoticeVO  vo = null;
 		try {
-			sql = "update study_freeboard set readnum = readnum + 1 where num=?";
+			sql = "update study_notice set readnum = readnum + 1 where num=?";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 			
-			pstmt = conn.prepareStatement("select * from study_freeboard where num=?");
+			pstmt = conn.prepareStatement("select * from study_notice where num=?");
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				vo = new FreeboardVO();
+				vo = new NoticeVO();
 				vo.setNum(rs.getInt("num"));
 				vo.setWriter(rs.getString("writer"));
 				vo.setSubject(rs.getString("subject"));
@@ -170,20 +170,20 @@ public class FreeboardDAO {
 	} //content
 	
 	
-	public FreeboardVO update(int num) {
+	public NoticeVO update(int num) {
 	      Connection conn = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
-	      FreeboardVO vo = null;
+	      NoticeVO vo = null;
 
 	      try {
 	         conn = getConnection();
-	         pstmt = conn.prepareStatement("select * from study_freeboard where num = ?");
+	         pstmt = conn.prepareStatement("select * from study_notice where num = ?");
 	         pstmt.setInt(1, num);
 	         rs = pstmt.executeQuery();
 
 	         if (rs.next()) {
-	            vo = new FreeboardVO();
+	            vo = new NoticeVO();
 	            vo.setNum(rs.getInt("num"));
 	            vo.setWriter(rs.getString("writer"));
 	            vo.setSubject(rs.getString("subject"));
@@ -201,7 +201,7 @@ public class FreeboardDAO {
 	      return vo;
 	   } //update(1) 수정전 데이터 추출
 
-	   public int update(FreeboardVO vo) {
+	   public int update(NoticeVO vo) {
 	      Connection conn = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
@@ -214,7 +214,7 @@ public class FreeboardDAO {
 
 	      try {
 	         conn = getConnection();
-	         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
+	         pstmt = conn.prepareStatement("select writer from study_notice where num = ?");
 	         pstmt.setInt(1, vo.getNum());
 	         rs = pstmt.executeQuery();
 
@@ -222,7 +222,7 @@ public class FreeboardDAO {
 	            dbwriter = rs.getString("writer");
 
 	            if (dbwriter.equals(vo.getWriter())) {
-	               sb.append("update study_freeboard set subject = ?, content = ? ");
+	               sb.append("update study_notice set subject = ?, content = ? ");
 	               sb.append("where num = ?");
 
 	               pstmt = conn.prepareStatement(sb.toString());
@@ -257,11 +257,7 @@ public class FreeboardDAO {
 
 		      try {
 		         conn = getConnection();
-	             pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
-	             pstmt.setInt(1, num);
-	             pstmt.executeUpdate();
-	             CloseUtil.close(pstmt);
-	             pstmt = conn.prepareStatement("delete from study_replyboard where reply_num = ?");
+	             pstmt = conn.prepareStatement("delete from study_notice where num = ?");
 	             pstmt.setInt(1, num);
 	             pstmt.executeUpdate();
 		      } catch (Exception e) {
@@ -278,7 +274,7 @@ public class FreeboardDAO {
 
 	         try {
 	            conn = getConnection();
-	           pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
+	           pstmt = conn.prepareStatement("delete from study_notice where num = ?");
 	           pstmt.setString(1, num);
 
 	           pstmt.executeUpdate();
@@ -289,90 +285,4 @@ public class FreeboardDAO {
 	            CloseUtil.close(conn);
 	         }
 	    }
-	   
-	   public void re_insert(ReplyVO vo) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			StringBuffer sb = new StringBuffer();
-			try {
-				conn = getConnection();
-				sb.append("insert into study_replyboard (re_num, re_writer, re_content, re_reg_date, reply_num) ");
-				sb.append(" values(replyboard_num.nextVal, ?, ?, ?, ?)");
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setString(1, vo.getRe_writer());
-				pstmt.setString(2, vo.getRe_content());
-				pstmt.setTimestamp(3, vo.getRe_reg_date());
-				pstmt.setInt(4, vo.getReply_num());
-				pstmt.executeUpdate();
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			} finally {
-				CloseUtil.close(rs);
-				CloseUtil.close(pstmt);
-				CloseUtil.close(conn);	
-			}
-		} // write
-	   
-	   public int re_getListAllCount(int reply_num) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			int count = 0;
-			
-			try {
-				conn = getConnection();
-				pstmt = conn.prepareStatement("select count(*) from study_replyboard where reply_num=? ");
-				pstmt.setInt(1, reply_num);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) count = rs.getInt(1);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				CloseUtil.close(rs);
-				CloseUtil.close(pstmt);
-				CloseUtil.close(conn);
-			}
-			return count;
-		}
-		
-		public List<ReplyVO> re_getSelectAll(int reply_num) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null; 
-			List<ReplyVO> list = null;
-			StringBuffer sb = new StringBuffer();
-			try {
-				conn = getConnection();
-				sb.append("select * from study_replyboard where reply_num=? order by re_reg_date asc");
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, reply_num);
-//				pstmt.setInt(1, startRow);
-//				pstmt.setInt(2, endRow);
-				rs = pstmt.executeQuery();
-				if(rs.next()) { 
-	                list = new ArrayList<ReplyVO>();                
-					do {
-						ReplyVO vo = new ReplyVO();	
-						vo.setRe_writer(rs.getString("re_writer"));
-						vo.setRe_content(rs.getString("re_content"));
-						vo.setRe_reg_date(rs.getTimestamp("re_reg_date"));
-						vo.setReply_num(rs.getInt("reply_num"));
-						list.add(vo);
-					} while(rs.next());
-				}else{
-	                list = Collections.EMPTY_LIST;
-	            }     
-			} catch (Exception e) {
-				e.printStackTrace();
-			}  finally {
-				CloseUtil.close(rs);
-				CloseUtil.close(pstmt);
-				CloseUtil.close(conn);
-			}
-			return list;
-		}
 }

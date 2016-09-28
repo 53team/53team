@@ -82,9 +82,10 @@ $(function(){
 <body>
 <div class='menu-bar'>
 	<ul class="menu">
+		<li><a href="main.do">홈</a>
 		<li><a href="#">게시판</a>
 	    	<ul>
-	      		<li><a href="#">공지사항</a></li>
+	      		<li><a href="/teamtest/list(notice).do">공지사항</a></li>
 	      		<li><a href="/teamtest/list.do">자유게시판</a></li>
 	    	</ul>
 		</li>
