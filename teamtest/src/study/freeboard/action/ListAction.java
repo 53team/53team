@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
 import study.freeboard.bean.FreeboardVO;
-import study.freeboard.bean.FreeboardPageVO;
+import study.freeboard.bean.FreeboardPage;
 
 public class ListAction implements CommandAction{
     public String process(HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -46,7 +46,7 @@ public class ListAction implements CommandAction{
     }
     number = count - (currentPage - 1) * pageSize;
 
-    FreeboardPageVO vo= new FreeboardPageVO();
+    FreeboardPage vo= new FreeboardPage();
     vo.setCount(count);
     vo.setCurrentPage(currentPage);
     vo.setNumber(number);

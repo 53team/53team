@@ -16,6 +16,7 @@ public class ReplyProAction implements CommandAction{
 		request.setCharacterEncoding("utf-8");
 		FreeboardDAO dao = FreeboardDAO.getInstance();
 		ReplyVO vo = new ReplyVO();
+		vo.setRe_num(Integer.parseInt(request.getParameter("re_num")));
 		vo.setReply_num(Integer.parseInt(request.getParameter("reply_num")));
 		vo.setRe_writer(request.getParameter("re_writer"));
 		vo.setRe_content(request.getParameter("re_content"));

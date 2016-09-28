@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
-import study.freeboard.bean.FreeboardPageVO;
+import study.freeboard.bean.FreeboardPage;
 import study.member.bean.MemberDAO;
 import study.member.bean.MemberPageVO;
 import study.member.bean.MemberVO;

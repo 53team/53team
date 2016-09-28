@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
-import study.freeboard.bean.FreeboardPageVO;
 import study.freeboard.bean.FreeboardVO;
-import study.freeboard.bean.ReplyPageVO;
 import study.freeboard.bean.ReplyVO;
 
 public class ContentAction implements CommandAction{
@@ -35,29 +33,20 @@ public class ContentAction implements CommandAction{
 			request.setAttribute("content", vo.getContent());
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("reg_date", sdf.format(vo.getReg_date()));
+			int re_num = 0;
+			if (request.getParameter("re_num") != null) { 
+				re_num = Integer.parseInt(request.getParameter("re_num"));
+			}
+			request.setAttribute("re_num", new Integer(re_num));
 			request.setAttribute("reply_num", num);
 		    ////////////// 
 		    int reply_num = Integer.parseInt(request.getParameter("num"));
-//		    int pageSize = 10;
-//		    int currentPage = 1;
 		    int count = dao.re_getListAllCount(reply_num); 
-//		    int startRow = count - ((currentPage - 1) * pageSize) - 9;
-//		    int endRow = startRow + 9;
-//		    int number = 0;
 		    List<ReplyVO> list = null;
 		    System.out.println("count :" + count + ", num : " + reply_num);
 		    if(count > 0){
 		        list = dao.re_getSelectAll(reply_num);
 		    }
-//		    number = count - (currentPage - 1) * pageSize;
-
-//		    ReplyPageVO fvo= new ReplyPageVO();
-//		    fvo.setCount(count);
-//		    fvo.setCurrentPage(currentPage);
-//		    fvo.setNumber(number);
-//		    fvo.setPageSize(pageSize);
-
-//		    request.setAttribute("vo", fvo);
 		    request.setAttribute("count", count);
 		    request.setAttribute("list", list);
 		} catch(Exception e) {

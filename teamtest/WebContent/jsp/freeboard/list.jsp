@@ -77,26 +77,19 @@ function checkDel(){
 			</td>
 			</c:if>
 		    <td align="center">${number}<c:set var="number" value="${number - 1}"/></td>
-		    <td align="center"><a href="content.do?num=${list.num}">${list.subject}</a></a></td>
+		    <td align="center"><a href="content.do?num=${list.num}">${list.subject}</a></td>
 		    <td align="center">${list.writer}</td>
 		    <td align="center">${list.reg_date }</td>
 		    <td align="center">${list.readnum}</td>
 		</tr>
 		</c:forEach>
-		
+		<c:if test="${sid == 'admin' }">
 		<tr>
 			<td colspan = "9" align = "right">
-			<c:if test="${sid != null }">
-			<a href="writeForm.do"><input type="button" value="글쓰기"></a>
-			</c:if>
-			<c:if test="${sid == null }">
-			<a href="loginForm.do"><input type="button" value="글쓰기"></a>
-			</c:if>
-			<c:if test="${sid == 'admin' }">
 			<input type = "submit" value = "삭제">
-			</c:if>
-			</td>
+			</td>	
 		</tr>
+		</c:if>
 	</table>
 	</form>
 </c:if>
@@ -129,7 +122,26 @@ function checkDel(){
    		</td>
    	</tr>
    	</c:if>
+   	<tr>
+    	<td align="center" valign="bottom">
+      		<select name="keyField">
+      			<c:if test="${vo.keyField == 'subject'}"><option value="subject" selected="selected">제목</option></c:if>
+      			<c:if test="${vo.keyField != 'subject'}"><option value="subject">제목</option></c:if>
+      			<c:if test="${vo.keyField == 'writer'}"><option value="writer" selected="selected">작성자</option></c:if>
+      			<c:if test="${vo.keyField != 'writer'}"><option value="writer">작성자</option></c:if>
+      			<c:if test="${vo.keyField == 'content'}"><option value="content" selected="selected">내용</option></c:if>
+      			<c:if test="${vo.keyField != 'content'}"><option value="content">내용</option></c:if>
+			</select>
+        <input type="text" size=16 name="keyWord" value="${vo.keyWord}"><input type="submit" value="검색">
+        </td>
+	</tr>
 </table>
 </form>
+<c:if test="${sid != null }">
+<a href="writeForm.do">글쓰기</a>
+</c:if>
+<c:if test="${sid == null }">
+<a href="loginForm.do">글쓰기</a>
+</c:if>
 </body>
 </html>

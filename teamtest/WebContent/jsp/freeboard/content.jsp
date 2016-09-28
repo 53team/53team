@@ -48,7 +48,9 @@
 		</c:forEach>
 	</table>
 	<br>
+	<c:if test="${sid != null }">
 	<form action="replyPro.do" method="post" name="reply">
+		<input type="hidden" name="re_num" value="${re_num}">
 		<input type="hidden" name="re_writer" value="${sid}">
 		<input type="hidden" name="reply_num" value="${reply_num}">
 		<table width = "50%" cellspacing = "2" cellpadding="0" align="center">
@@ -62,6 +64,19 @@
 			</tr>
 		</table>
 	</form>
+	</c:if>
+	<c:if test="${sid == null }">
+		<table width = "50%" cellspacing = "2" cellpadding="0" align="center">
+			<tr>
+				<td align="left">
+					<textarea rows="2" cols="85" name="re_content" disabled="disabled" style="resize:none;">로그인 하셔야 합니다.</textarea>
+				</td>
+				<td>
+					<input type = "submit" value = "댓글작성">
+				</td>
+			</tr>
+		</table>
+	</c:if>
 </div>
 </body>
 </html>

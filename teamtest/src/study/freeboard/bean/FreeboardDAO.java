@@ -294,7 +294,8 @@ public class FreeboardDAO {
 			StringBuffer sb = new StringBuffer();
 			try {
 				conn = getConnection();
-				sb.append("insert into study_replyboard (re_writer, re_content, re_reg_date, reply_num) values (?, ?, ?, ?)");
+				sb.append("insert into study_replyboard (re_num, re_writer, re_content, re_reg_date, reply_num) ");
+				sb.append(" values(replyboard_num.nextVal, ?, ?, ?, ?)");
 				pstmt = conn.prepareStatement(sb.toString());
 				pstmt.setString(1, vo.getRe_writer());
 				pstmt.setString(2, vo.getRe_content());
@@ -343,7 +344,7 @@ public class FreeboardDAO {
 			StringBuffer sb = new StringBuffer();
 			try {
 				conn = getConnection();
-				sb.append("select * from study_replyboard where reply_num=? order by re_reg_date desc");
+				sb.append("select * from study_replyboard where reply_num=? order by re_reg_date asc");
 				pstmt = conn.prepareStatement(sb.toString());
 				pstmt.setInt(1, reply_num);
 //				pstmt.setInt(1, startRow);

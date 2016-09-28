@@ -5,7 +5,14 @@ import java.sql.Timestamp;
 public class ReplyVO {
 	String re_writer, re_content;
 	Timestamp re_reg_date;
-	int reply_num;	
+	int re_num, reply_num;
+	
+	public int getRe_num() {
+		return re_num;
+	}
+	public void setRe_num(int re_num) {
+		this.re_num = re_num;
+	}
 	public String getRe_writer() {
 		return re_writer;
 	}

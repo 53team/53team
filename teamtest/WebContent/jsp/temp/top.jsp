@@ -109,7 +109,6 @@ $(function(){
 			    <li><a href="/teamtest/withdrawalForm.do">회원탈퇴</a></li>
 			</ul>
 		</li>
-		<li><a href="/teamtest/replyList.do">댓글 테스트</a></li>
 		</c:if>
 		<c:if test="${sid == 'admin'}">
 		<li><a href="memberList.do">회원목록</a></li>
