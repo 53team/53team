@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글목록</title>
+<title>freeboard/list</title>
 <script type="text/javascript">
-	function search(){
+	function check(){
 		if(document.search.keyWord.value==""){
 			alert("검색어를 입력하세요");
 			document.search.keyWord.focus();
@@ -17,13 +17,12 @@
 	}
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
-	   $("#checkAll").click(function(e) {
-	      var table = $(e.target).closest('table');
-	      $('td input:checkbox', table).prop("checked", this.checked);
-	   });
-
-	});
+$(document).ready(function() {
+   $("#checkAll").click(function(e) {
+      var table = $(e.target).closest('table');
+      $('td input:checkbox', table).prop("checked", this.checked);
+   });
+});
 </script>
 <script type="text/javascript">
 function checkDel(){ 
@@ -39,8 +38,8 @@ function checkDel(){
 	}
 
 	if(Check_Count == 0) {
-		alert("선택항목이 없습니다."); 
-	return false; 
+        alert("선택항목이 없습니다."); 
+		return false;
 	}
 }
 </script>
@@ -52,19 +51,6 @@ function checkDel(){
 	<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 		<tr>
 		    <td align="center">게시판에 저장된 글이 없습니다.</td>
-		</tr>
-		<tr>
-			<td colspan="9" align="right">
-				<c:if test="${sid == 'admin' }">
-					<input type="submit" value="삭제">
-				</c:if>
-				<c:if test="${sid != null }">
-					<a href="writeForm.do"><input type="button" value="글쓰기"></a>
-				</c:if>
-				<c:if test="${sid == null }">
-					<a href="loginForm.do"><input type="button" value="글쓰기"></a>
-				</c:if>
-			</td>	
 		</tr>
 	</table>
 </c:if>
@@ -90,7 +76,7 @@ function checkDel(){
 			</td>
 			</c:if>
 		    <td align="center">${number}<c:set var="number" value="${number - 1}"/></td>
-		    <td align="left"><a href="content.do?num=${list.num}">${list.subject}</a></td>
+		    <td align="left"><a href="content.do?num=${list.num}">${list.subject}</a>${count1}</td>
 		    <c:if test="${list.writer == '관리자' }">
 		    <td align="center"><b>${list.writer}</b></td>
 		    </c:if>
@@ -119,7 +105,7 @@ function checkDel(){
 	</form>
 </c:if>
 	
-<form action="list.do" name="search" method="get" onsubmit="return search()">
+<form action="list.do" name="search" method="get" onsubmit="return check()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
 	<tr>

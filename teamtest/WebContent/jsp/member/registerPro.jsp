@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>registerPro</title>
+<title>member/registerPro</title>
 </head>
 <body>
 <c:if test="${ result==1 }">

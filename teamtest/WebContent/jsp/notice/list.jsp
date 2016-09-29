@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글목록</title>
+<title>notice/list</title>
 <script type="text/javascript">
-	function search(){
+	function check(){
 		if(document.search.keyWord.value==""){
 			alert("검색어를 입력하세요");
 			document.search.keyWord.focus();
@@ -101,25 +101,21 @@ function checkDel(){
 		    <td align="center">${list.readnum}</td>
 		</tr>
 		</c:forEach>
-		
+		<c:if test="${sid == 'admin' }">
 		<tr>
 			<td colspan="9" align="right">
-				<c:if test="${sid == 'admin' }">
+				
 					<input type="submit" value="삭제">
-				</c:if>
-				<c:if test="${sid != null }">
 					<a href="writeForm(notice).do"><input type="button" value="글쓰기"></a>
-				</c:if>
-				<c:if test="${sid == null }">
-					<a href="loginForm(notice).do"><input type="button" value="글쓰기"></a>
-				</c:if>
+				
 			</td>	
 		</tr>
+		</c:if>
 	</table>
 	</form>
 </c:if>
 	
-<form action="list(notice).do" name="search" method="get" onsubmit="return search()">
+<form action="list(notice).do" name="search" method="get" onsubmit="return check()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
 	<tr>
@@ -152,8 +148,6 @@ function checkDel(){
       		<select name="keyField">
       			<c:if test="${vo.keyField == 'subject'}"><option value="subject" selected="selected">제목</option></c:if>
       			<c:if test="${vo.keyField != 'subject'}"><option value="subject">제목</option></c:if>
-      			<c:if test="${vo.keyField == 'writer'}"><option value="writer" selected="selected">작성자</option></c:if>
-      			<c:if test="${vo.keyField != 'writer'}"><option value="writer">작성자</option></c:if>
       			<c:if test="${vo.keyField == 'content'}"><option value="content" selected="selected">내용</option></c:if>
       			<c:if test="${vo.keyField != 'content'}"><option value="content">내용</option></c:if>
 			</select>

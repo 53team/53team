@@ -33,7 +33,7 @@ function checkDel(){
 	}
 }
 </script>
-	<title>게시판</title>
+	<title>member/memberList</title>
 </head>
 <body>
 <h1 align="center">회원목록</h1>

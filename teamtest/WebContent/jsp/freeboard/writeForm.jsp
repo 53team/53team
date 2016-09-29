@@ -5,11 +5,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글쓰기</title>
+<script type="text/javascript">
+function writeSave(){
+	if(!document.writeform.subject.value){
+	  alert("제목을 입력하십시요.");
+	  document.writeform.subject.focus();
+	  return false;
+	}
+	
+	if(!document.writeform.content.value){
+	  alert("내용을 입력하십시요.");
+	  document.writeform.content.focus();
+	  return false;
+	}
+ }  
+</script>
+<title>freeboard/writeForm</title>
 </head>
 <body>
 <div align="center">
-<form action = "writePro.do" method="post" name = "writeform">
+<form action = "writePro.do" method="post" name = "writeform" onsubmit="return writeSave()">
 	<input type="hidden" name="num" value="${num}">
 	<c:if test="${sid == 'admin' }">
 	<input type="hidden" name="writer" value="${'관리자'}">
@@ -21,7 +36,7 @@
 		<tr>
 		   <td align = "right" colspan="2">
 		   <a href = "list.do"> 글목록 보기</a>
-		   </td>
+		</td>
 		</tr>
 		<tr>
 		   <td width="70" align = "center"> 제  목</td>

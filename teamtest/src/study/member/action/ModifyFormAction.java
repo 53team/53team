@@ -12,7 +12,6 @@ public class ModifyFormAction implements CommandAction {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	      String pageNum = request.getParameter("pageNum");
 	      HttpSession session = request.getSession();
 	      String sid = (String)session.getAttribute("sid");
 	      try {

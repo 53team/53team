@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>member/withdrawalPro</title>
 </head>
 <body>
 <c:if test="${ result==1 }">

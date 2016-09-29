@@ -197,12 +197,19 @@ public class MemberDAO {
     	Connection conn=null;
     	PreparedStatement pstmt=null;
     	String sql=null;
+    	String originalPWD=null;
+    	String cryptPWD=null;
     	
     	try {
 			conn=getConnection();
+			
+			originalPWD=vo.getPwd();
+    		cryptPWD=BCrypt.hashpw(originalPWD , BCrypt.gensalt());
+    		
+    		
 			sql="update study_member set pwd=?, name=?, phone=?, location=? where id=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(1, cryptPWD);
 			pstmt.setString(2, vo.getName());
 			pstmt.setString(3, vo.getPhone());
 			pstmt.setString(4, vo.getLocation());

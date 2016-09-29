@@ -35,9 +35,9 @@ public class FreeboardDAO {
 			} else {
 				number = 1;
 			}
+			CloseUtil.close(pstmt);
 			sb.append("insert into study_freeboard(num, writer, subject, content, reg_date) ");
 			sb.append(" values(freeboard_num.nextVal, ?, ?, ?, ?)");
-			
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setString(1, vo.getWriter());
 			pstmt.setString(2, vo.getSubject());
@@ -85,7 +85,7 @@ public class FreeboardDAO {
         return count;
     }
     
-    public List<FreeboardVO> getSelectAll(int startRow, int endRow, String keyField,String keyWord)throws Exception{
+    public List<FreeboardVO> getSelectAll(int startRow, int endRow, String keyField, String keyWord)throws Exception{
         Connection conn= null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
@@ -108,7 +108,8 @@ public class FreeboardDAO {
             }
             rs = pstmt.executeQuery();
             if(rs.next()){
-                list= new ArrayList<FreeboardVO>();                
+                list = new ArrayList<FreeboardVO>();
+                
                 do{
                     FreeboardVO vo =new FreeboardVO();
                     vo.setNum(rs.getInt("num"));
@@ -118,8 +119,7 @@ public class FreeboardDAO {
                     vo.setReadnum(rs.getInt("readnum"));
                     vo.setContent(rs.getString("content"));
                     list.add(vo);
-                    System.out.println(list);
-                }while(rs.next());
+                } while(rs.next());
             }else{
                 list = Collections.EMPTY_LIST;
             }            
@@ -145,7 +145,7 @@ public class FreeboardDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
-			
+			CloseUtil.close(pstmt);
 			pstmt = conn.prepareStatement("select * from study_freeboard where num=?");
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -207,7 +207,6 @@ public class FreeboardDAO {
 	      ResultSet rs = null;
 
 	      String dbwriter = "";
-	      String sql = "";
 	      StringBuffer sb = new StringBuffer();
 
 	      int result = -1;
@@ -217,16 +216,13 @@ public class FreeboardDAO {
 	         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
 	         pstmt.setInt(1, vo.getNum());
 	         rs = pstmt.executeQuery();
-
+	         CloseUtil.close(pstmt);
 	         if (rs.next()) {
 	            dbwriter = rs.getString("writer");
 
 	            if (dbwriter.equals(vo.getWriter())) {
-	               sb.append("update study_freeboard set subject = ?, content = ? ");
-	               sb.append("where num = ?");
-
+	               sb.append("update study_freeboard set subject = ?, content = ? where num = ?");
 	               pstmt = conn.prepareStatement(sb.toString());
-
 	               pstmt.setString(1, vo.getSubject());
 	               pstmt.setString(2, vo.getContent());
 	               pstmt.setInt(3, vo.getNum());
@@ -273,23 +269,26 @@ public class FreeboardDAO {
 	   } // 삭제
 	   
 	   public void delete(String num) {
-	         Connection conn = null;
-	         PreparedStatement pstmt = null;
+		      Connection conn = null;
+		      PreparedStatement pstmt = null;
 
-	         try {
-	            conn = getConnection();
-	           pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
-	           pstmt.setString(1, num);
+		      try {
+		         conn = getConnection();
+	             pstmt = conn.prepareStatement("delete from study_freeboard where num = ?");
+	             pstmt.setString(1, num);
+	             pstmt.executeUpdate();
+	             CloseUtil.close(pstmt);
+	             pstmt = conn.prepareStatement("delete from study_replyboard where reply_num = ?");
+	             pstmt.setString(1, num);
+	             pstmt.executeUpdate();
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      } finally {
+		         CloseUtil.close(pstmt);
+		         CloseUtil.close(conn);
+		      }
+	   } // 삭제
 
-	           pstmt.executeUpdate();
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         } finally {
-	            CloseUtil.close(pstmt);
-	            CloseUtil.close(conn);
-	         }
-	    }
-	   
 	   public void re_insert(ReplyVO vo) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -350,13 +349,12 @@ public class FreeboardDAO {
 				sb.append("select * from study_replyboard where reply_num=? order by re_reg_date asc");
 				pstmt = conn.prepareStatement(sb.toString());
 				pstmt.setInt(1, reply_num);
-//				pstmt.setInt(1, startRow);
-//				pstmt.setInt(2, endRow);
 				rs = pstmt.executeQuery();
 				if(rs.next()) { 
 	                list = new ArrayList<ReplyVO>();                
 					do {
 						ReplyVO vo = new ReplyVO();	
+						vo.setRe_num(rs.getInt("re_num"));
 						vo.setRe_writer(rs.getString("re_writer"));
 						vo.setRe_content(rs.getString("re_content"));
 						vo.setRe_reg_date(rs.getTimestamp("re_reg_date"));
@@ -375,4 +373,53 @@ public class FreeboardDAO {
 			}
 			return list;
 		}
+		public ReplyVO re_select(int re_num) {
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            ReplyVO vo = null;
+
+            try {
+               conn = getConnection();
+               pstmt = conn.prepareStatement("select * from study_replyboard where re_num = ?");
+               pstmt.setInt(1, re_num);
+               rs = pstmt.executeQuery();
+
+               if (rs.next()) {
+                  vo = new ReplyVO();
+                  vo.setRe_num(rs.getInt("re_num"));
+                  vo.setRe_writer(rs.getString("re_writer"));
+                  vo.setRe_content(rs.getString("re_content"));
+                  vo.setRe_reg_date(rs.getTimestamp("re_reg_date"));
+
+               }
+            } catch (Exception e) {
+               e.printStackTrace();
+            } finally {
+              CloseUtil.close(rs);
+              CloseUtil.close(pstmt);
+               CloseUtil.close(conn);
+            }
+
+            return vo;
+         } //select 수정전 데이터 추출
+      
+      public void re_delete(ReplyVO vo) {
+          Connection conn = null;
+         PreparedStatement pstmt = null;
+         
+         try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement("delete from study_replyboard where re_num = ?");
+            pstmt.setInt(1, vo.getRe_num());
+            pstmt.executeUpdate();
+            
+         } catch(Exception e) {
+            e.printStackTrace();
+         } finally {
+            CloseUtil.close(pstmt);
+            CloseUtil.close(conn);   
+         }
+      }
+		
 }

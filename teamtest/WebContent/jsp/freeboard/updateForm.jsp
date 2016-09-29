@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>수정폼</title>
+<title>freeboard/updateForm</title>
 </head>
 <body>
    <form action="updatePro.do?pageNum=${pageNum}" method="post" name="updateForm" onsubmit="return writeSave()">

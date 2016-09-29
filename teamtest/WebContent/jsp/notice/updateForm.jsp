@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>방명록 글쓰기</title>
+<title>notice/updateForm</title>
 <link href="../view/mystyle.css" rel="stylesheet" type=text/css">
 <script type="text/javascript" src="../view/script.js"></script>
 </head>

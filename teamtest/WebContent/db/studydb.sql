@@ -78,6 +78,3 @@ create sequence replyboard_num
 	increment by 1
 	start with 1
 	nocache;
-	
-insert into study_replyboard (re_num, re_writer, re_content, re_reg_date, reply_num) values(replyboard_num.nextVal, 'admin', 'zzzzzz', '2000/01/01', 151)
-select count(*) from study_replyboard where reply_num=150

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글쓰기</title>
+<title>notice/writeForm</title>
 </head>
 <body>
 <div align="center">

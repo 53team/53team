@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>게시판</title>
+	<title>notice/content</title>
 </head> 
 <body>
 <div align="center">
@@ -30,7 +30,7 @@
 					<input type="button" value="글수정" onclick="document.location.href='updateForm(notice).do?num=${num}&pageNum=${pageNum}'"> 
 					<input type="button" value="글삭제" onclick="document.location.href='deleteForm(notice).do?num=${num}&pageNum=${pageNum}'">
 				</c:if>
-					<input type = "button" value="목록 보기" onclick="document.location.href='list(notice).do?pageNum=${pageNum}'"> 
+					<input type = "button" value="목록 보기" onclick="document.location.href='list(notice).do?pageNum=1'"> 
 			</td>
 		</tr>
 	</table>

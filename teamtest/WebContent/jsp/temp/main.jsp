@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Insert title here</title>
+	<title>temp/main</title>
 </head>
 <body>
 <h1>MAIN</h1>

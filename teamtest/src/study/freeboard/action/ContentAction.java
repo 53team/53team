@@ -12,6 +12,9 @@ import study.freeboard.bean.FreeboardVO;
 import study.freeboard.bean.ReplyVO;
 
 public class ContentAction implements CommandAction{
+	public int getRecount(int count) {
+		return count;
+	}
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {

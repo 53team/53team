@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
 import study.freeboard.bean.FreeboardVO;
+import study.freeboard.bean.ReplyVO;
 import study.freeboard.bean.FreeboardPage;
 
 public class ListAction implements CommandAction{
@@ -33,30 +34,30 @@ public class ListAction implements CommandAction{
     int pageSize = 10;
     int currentPage = Integer.parseInt(pageNum);
     int count = dao.getListAllCount(keyField, keyWord);
+    System.out.println(count);
+    
     int startRow = count - ((currentPage-1) * pageSize) -9;
     int endRow = startRow + 9;
     int number = 0;
     
     List<FreeboardVO> list =null;
-
-    count =dao.getListAllCount(keyField,keyWord);
     
-    if(count>0){
+    if(count > 0){
         list = dao.getSelectAll(startRow, endRow, keyField, keyWord);
     }
-    number = count - (currentPage - 1) * pageSize;
 
-    FreeboardPage vo= new FreeboardPage();
+    number = count - (currentPage - 1) * pageSize;
+    FreeboardPage vo = new FreeboardPage();
     vo.setCount(count);
     vo.setCurrentPage(currentPage);
     vo.setNumber(number);
     vo.setPageSize(pageSize);
     vo.setKeyField(keyField);
-    vo.setKeyWord(keyWord);    
-    
+    vo.setKeyWord(keyWord);
     request.setAttribute("vo", vo);
     request.setAttribute("list", list);
-
+    
+    
     return "/jsp/freeboard/list.jsp";
     }
 }
