@@ -6,44 +6,6 @@
 <html>
 <head>
 <title>notice/list</title>
-<script type="text/javascript">
-	function check(){
-		if(document.search.keyWord.value==""){
-			alert("검색어를 입력하세요");
-			document.search.keyWord.focus();
-			return false;
-		}
-		return true;
-	}
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-	   $("#checkAll").click(function(e) {
-	      var table = $(e.target).closest('table');
-	      $('td input:checkbox', table).prop("checked", this.checked);
-	   });
-
-	});
-</script>
-<script type="text/javascript">
-function checkDel(){ 
-	var Check_Count = 0; 
-	var frm = document.forms[0];
-	
-	if(frm.check.length > 0){
-	    for(i = 0; i < frm.check.length; ++i) { 
-        	if(frm.check[i].checked == true) Check_Count ++;
-    	}
-	} else { 
-		if(frm.check.checked == true) Check_Count ++;
-	}
-
-	if(Check_Count == 0) {
-		alert("선택항목이 없습니다."); 
-	return false; 
-	}
-}
-</script>
 </head>
 <body>
 <h1 align="center">공지사항</h1>
@@ -115,7 +77,7 @@ function checkDel(){
 	</form>
 </c:if>
 	
-<form action="list(notice).do" name="search" method="get" onsubmit="return check()">
+<form action="list(notice).do" name="search" method="get" onsubmit="return searchCheck()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
 	<tr>

@@ -6,24 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>member/modifyForm</title>
-<script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-<script>
-$(document).ready(function(){
-	  $('#pwd').keyup(function(){
-	   $('#check').text('');
-	  });
-
-	  $('#repwd').keyup(function(){
-	   if($('#pwd').val()==$('#repwd').val()){
-	    $('#check').text('');
-	    $('#check').html("암호가 동일합니다");
-	   }else{
-	    $('#check').text('');
-	    $('#check').html("암호가 다릅니다. 다시 입력해주세요");
-	   }
-	  });
-	 });
-</script>
 </head>
 <body>
 <div>

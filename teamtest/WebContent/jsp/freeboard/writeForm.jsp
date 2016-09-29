@@ -5,21 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-function writeSave(){
-	if(!document.writeform.subject.value){
-	  alert("제목을 입력하십시요.");
-	  document.writeform.subject.focus();
-	  return false;
-	}
-	
-	if(!document.writeform.content.value){
-	  alert("내용을 입력하십시요.");
-	  document.writeform.content.focus();
-	  return false;
-	}
- }  
-</script>
 <title>freeboard/writeForm</title>
 </head>
 <body>

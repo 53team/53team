@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import study.controller.CommandAction;
 import study.freeboard.bean.FreeboardDAO;
 import study.freeboard.bean.FreeboardVO;
-import study.freeboard.bean.ReplyVO;
 import study.freeboard.bean.FreeboardPage;
 
 public class ListAction implements CommandAction{
@@ -22,6 +21,7 @@ public class ListAction implements CommandAction{
     if(keyField==null){
         keyField="";
     }
+    
     if(keyWord==null){
         keyWord="";
     }    

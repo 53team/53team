@@ -4,8 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>notice/updateForm</title>
-<link href="../view/mystyle.css" rel="stylesheet" type=text/css">
-<script type="text/javascript" src="../view/script.js"></script>
 </head>
 <body>
    <form action="updatePro(notice).do?pageNum=${pageNum}" method="post" name="updateForm" onsubmit="return writeSave()">
