@@ -5,12 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Study53</title>
+<!-- CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/top.css">
+
+<!-- JS -->
+<script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.1.1.min.js"></script>
+
 <script src="js/insert.js"></script>
 <script src="js/reply.js"></script>
 <script src="js/search.js"></script>
 <script src="js/delete.js"></script>
 <script src="js/register.js"></script>
+
 </head>
 <body>
 <div align=center>

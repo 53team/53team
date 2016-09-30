@@ -16,8 +16,7 @@ public class BottonProAction implements CommandAction {
 			String test = check[i];
 			dao.delete(test);
 			}
-		}	
-		
+		}
 		return "/jsp/freeboard/deletePro.jsp";
 	}
 }

@@ -15,23 +15,10 @@
 		<tr>
 		    <td align="center">게시판에 저장된 글이 없습니다.</td>
 		</tr>
-		<tr>
-			<td colspan="9" align="right">
-				<c:if test="${sid == 'admin' }">
-					<input type="submit" value="삭제">
-				</c:if>
-				<c:if test="${sid != null }">
-					<a href="writeForm(notice).do"><input type="button" value="글쓰기"></a>
-				</c:if>
-				<c:if test="${sid == null }">
-					<a href="loginForm(notice).do"><input type="button" value="글쓰기"></a>
-				</c:if>
-			</td>	
-		</tr>
 	</table>
 </c:if>
+<form action="/teamtest/freeboardTest(notice).do" name="checkbox" onsubmit="return checkDel()">
 <c:if test="${vo.count > 0}">
-	<form action="/teamtest/freeboardTest(notice).do" name="checkbox" onsubmit="return checkDel()">
 	<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 		<tr>
 			<c:if test="${sid == 'admin' }">
@@ -63,20 +50,17 @@
 		    <td align="center">${list.readnum}</td>
 		</tr>
 		</c:forEach>
-		<c:if test="${sid == 'admin' }">
+	</table>
+</c:if>
+	<c:if test="${sid == 'admin' }">
 		<tr>
 			<td colspan="9" align="right">
-				
 					<input type="submit" value="삭제">
 					<a href="writeForm(notice).do"><input type="button" value="글쓰기"></a>
-				
 			</td>	
 		</tr>
-		</c:if>
-	</table>
-	</form>
-</c:if>
-	
+	</c:if>
+</form>
 <form action="list(notice).do" name="search" method="get" onsubmit="return searchCheck()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
@@ -118,6 +102,5 @@
 	</tr>
 </table>
 </form>
-
 </body>
 </html>

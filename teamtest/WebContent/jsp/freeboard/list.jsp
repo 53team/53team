@@ -17,8 +17,8 @@
 		</tr>
 	</table>
 </c:if>
+<form action="/teamtest/freeboardTest.do" name="checkbox" onsubmit="return checkDel()">
 <c:if test="${vo.count > 0}">
-	<form action="/teamtest/freeboardTest.do" name="checkbox" onsubmit="return checkDel()">
 	<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 		<tr>
 			<c:if test="${sid == 'admin' }">
@@ -50,9 +50,11 @@
 		    <td align="center">${list.readnum}</td>
 		</tr>
 		</c:forEach>
-		
+	</table>
+</c:if>
+	<table>
 		<tr>
-			<td colspan="9" align="right">
+			<td align="right">
 				<c:if test="${sid == 'admin' }">
 					<input type="submit" value="삭제">
 				</c:if>
@@ -65,9 +67,7 @@
 			</td>	
 		</tr>
 	</table>
-	</form>
-</c:if>
-	
+</form>	
 <form action="list.do" name="search" method="get" onsubmit="return seachCheck()">
 <table align="center" cellpadding="4" cellspacing="0">
 	<c:if test="${vo.count > 0}">
@@ -111,6 +111,5 @@
 	</tr>
 </table>
 </form>
-
 </body>
 </html>

@@ -57,7 +57,16 @@ $(document).ready(function(){
 		<label for="phone">전화번호</label>
 		<input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required><br>
 		<label for="location">지역</label>
-		<input type="text" id="location" name="location" placeholder="서울" required><br>
+	    <select name="location" required>
+			<option>서울</option>
+			<option>경기</option>
+			<option>강원</option>
+			<option>충청</option>
+			<option>경상</option>
+			<option>전라</option>
+			<option>제주</option>
+	     </select>
+	     <br>
 		<input type="submit" value="가입하기">
 		<input type="reset" value="다시쓰기">
 	</form>
