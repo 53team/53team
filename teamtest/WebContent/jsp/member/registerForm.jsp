@@ -2,74 +2,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <title>member/registerForm</title>
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <script>
 $(document).ready(function(){
-	$('#pwd').keyup(function(){
-		$('#check').text('');
-	});
-	$('#repwd').keyup(function(){
-		if($('#pwd').val()==$('#repwd').val()){
-			$('#check').text('');
-		    $('#check').html("암호가 동일합니다");
-		} else {
-		    $('#check').text('');
-		    $('#check').html("암호가 다릅니다. 다시 입력해주세요");
-		}
-	});
-	$('#result').click(function(){
-		var i={id:$('#id').val()};
-		$.ajax({
-			type:"post",
-			url:"registerIDCheck.do",
-			data:i,
-			success:function(data){
-				var str = '<p id="result">';
-	    		var loc = data.indexOf(str);
-	    		var len = str.length;
-	    		var result = data.substr(loc+len,1);
-	    		if(result=="1"){
-	    			alert("중복되는 아이디입니다");
-	    	    	$("#id").val("");
-	    	     }else if (result=="0")
-	    	  	    alert("사용할 수 있는 아이디입니다");
-			}
-		});
-	});
+   $('#inputPassword').keyup(function(){
+      $('#check').text('');
+   });
+   $('#repwd').keyup(function(){
+      if($('#inputPassword').val()==$('#repwd').val()){
+         $('#check').text('');
+          $('#check').html("암호가 동일합니다");
+      } else {
+          $('#check').text('');
+          $('#check').html("암호가 다릅니다. 다시 입력해주세요");
+      }
+   });
+   $('#result').click(function(){
+      var i={id:$('#id').val()};
+      $.ajax({
+         type:"post",
+         url:"registerIDCheck.do",
+         data:i,
+         success:function(data){
+            var str = '<p id="result">';
+             var loc = data.indexOf(str);
+             var len = str.length;
+             var result = data.substr(loc+len,1);
+             if(result=="1"){
+                alert("중복되는 아이디입니다");
+                 $("#id").val("");
+               }else if (result=="0")
+                   alert("사용할 수 있는 아이디입니다");
+         }
+      });
+   });
 });
 </script>
 </head>
 <body>
-<div>
-	<form action="registerPro.do" method="post">
-		<label for="id">ID</label>
-		<input type="text" id="id" name="id" placeholder="최대 12자 영문/숫자" maxlength="12" autofocus required>
-		<input type="button" id="result" value="ID중복확인"><br>
-		<label for="pwd">비밀번호</label>
-		<input type="password" id="pwd" name="pwd" placeholder="최대 12자 영문/숫자" maxlength="12" required><br>
-		<label for="repwd">비밀번호 확인</label>
-		<input type="password" id="repwd" name="repwd" placeholder="비밀번호 확인" maxlength="12" required>
-		<font id="check" color="red"></font><br>
-		<label for="name">이름</label>
-		<input type="text" id="name" name="name" required><br>
-		<label for="phone">전화번호</label>
-		<input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required><br>
-		<label for="location">지역</label>
-	    <select name="location" required>
-			<option>서울</option>
-			<option>경기</option>
-			<option>강원</option>
-			<option>충청</option>
-			<option>경상</option>
-			<option>전라</option>
-			<option>제주</option>
-	     </select>
-	     <br>
-		<input type="submit" value="가입하기">
-		<input type="reset" value="다시쓰기">
-	</form>
+<form action="registerPro.do" method="post">
+<div class="container">
+	<div class="row">
+	<br><br>
+		<div class="col-md-2"></div>
+		<div class="col-md-8" id="middlebox" >
+			<div class="col-md-2"></div>
+			<div class="col-md-7">
+<br><br>
+<div class="col-md-4">
+<label for="inputID">ID</label>
+</div> 
+<div class="col-md-8">
+<input type="text" id="id" name="id" class="form-control" placeholder="아이디를 입력하세요" maxlength="12" required ><br>
 </div>
+<div class="col-md-4">
+<label for="inputPassword">비밀번호</label>
+</div>
+<div class="col-md-8">
+<input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="비밀번호를 다시 입력하세요" maxlength="12" required autofocus><br>
+</div>
+<div class="col-md-4">
+<label for="repwd">비밀번호<br>확인</label>
+</div>
+<div class="col-md-8">
+<input type="password" id="repwd" name="repwd" class="form-control" placeholder="비밀번호 확인" maxlength="12" required>
+<font id="check" color="red"></font><br>
+</div>
+<div class="col-md-4">
+<label for="name">이름</label>
+</div>
+<div class="col-md-8">
+<input type="text" id="name" name="name" class="form-control" placeholder="name"required><br>
+</div>
+<div class="col-md-4">
+<label for="phone">전화번호</label>
+</div>
+<div class="col-md-8">
+<input type="tel" id="phone" name="phone"  class="form-control" placeholder="010-0000-0000" required><br>
+</div>
+<div class="col-md-4">
+<label for="location">지역</label>
+</div>
+<div class="col-md-8">
+<select name="location" class="form-control" required>
+      <option>서울</option>
+      <option>경기</option>
+      <option>강원</option>
+<option>충청</option>
+<option>경상</option>
+<option>전라</option>
+<option>제주</option>
+ </select>
+ <br>
+</div>
+<div class="col-md-6">
+<input type="submit" class="btn btn-lg btn-primary btn-block" value="가입하기">
+</div>
+<div class="col-md-6">
+<input type="reset" class="btn btn-lg btn-primary btn-block" value="다시쓰기">
+ 	          <br>
+</div>
+
+	         </div>
+	         <div class="col-md-2">
+	            <br><br>
+	              <input type="button" id="result" class="form-control" value="중복확인"><br>
+	          </div>
+
+	         </div>
+	        </div>   
+	  <div class="col-md-2"></div>
+</div>
+</form>
 </body>
 </html>

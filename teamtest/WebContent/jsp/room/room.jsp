@@ -72,6 +72,12 @@
          <td align="center" width = "125">${ reg_date }</td>
       </tr>
       <tr>
+         <td align="center" width = "125">스터디지역</td>
+         <td align="center" width = "125">${ location }</td>
+         <td align="center" width = "125">카테고리</td>
+         <td align="center" width = "125">${ category }</td>
+      </tr>
+      <tr>
          <td align="center" width = "125">글제목</td>
          <td align="center" width = "125" colspan="3">${ title }</td>
       </tr>

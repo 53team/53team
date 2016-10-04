@@ -9,6 +9,7 @@
 	<title>member/memberList</title>
 </head>
 <body>
+<div id="box">
 <h1 align="center">회원목록</h1>
 <h5>총 ${vo.count - 1}명</h5>
 <c:if test="${vo.count == 1 }">
@@ -87,5 +88,6 @@
 			<a href="memberList.do?pageNum=${startPage+5 }">[다음]</a>
 		</c:if>
 	</c:if>
+</div>
 </body>
 </html>

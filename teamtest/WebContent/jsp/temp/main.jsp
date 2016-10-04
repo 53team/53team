@@ -6,7 +6,13 @@
 	<title>temp/main</title>
 </head>
 <body>
-<h1>MAIN</h1>
-<h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1><h1>MAIN</h1>
+<section id="banner">
+	<div class="inner">
+		<h1>쉽고 빠르게<br>스터디 그룹에 참여하세요!</h1>
+		<ul class="actions">
+			<li><a href="roomList.do" class="button alt scrolly big">Study Now!</a></li>
+		</ul>
+	</div>
+</section>
 </body>
 </html>
