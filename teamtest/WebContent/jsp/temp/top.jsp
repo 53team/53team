@@ -16,6 +16,7 @@
 	</nav>
 	<nav id="menu">
 		<ul class="links">
+			<li><a href="main.do">Home</a></li>
 			<c:if test="${sid == null}">
 			<li><a href="/teamtest/loginForm.do">Login</a></li> 
 			<li><a href="/teamtest/registerForm.do">Join</a></li>
@@ -23,9 +24,8 @@
 			<c:if test="${sid != null}"> 
 			<li><a href="/teamtest/logout.do">Logout</a></li>
 		    <li><a href="/teamtest/modifyCheckForm.do">Modify</a></li>
-		    <li><a href="/teamtest/withdrawalForm.do"></a></li>
+		    <li><a href="/teamtest/withdrawalForm.do">Withdrawal</a></li>
 			</c:if>
-			<li><a href="main.do">Home</a></li>
 			<li><a href="list(notice).do">Notice</a></li>
 			<li><a href="list.do">FreeBoard</a></li>
 			<li><a href="roomList.do">StudyRoom</a></li>

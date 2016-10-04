@@ -7,12 +7,26 @@
 <title>member/withdrawalForm</title>
 </head>
 <body>
-<div>
-	<form action="withdrawalPro.do">
-	<label for="pwd">비밀번호</label>
-	<input type="password" id="pwd" name="pwd" placeholder="최대 12자 영문/숫자" maxlength="12" required>
-	&nbsp;<input type="submit" value="회원 탈퇴">
-	</form>
+<br><br><br>
+<div class="container" id="smallbox">
+	<div class="row">
+		<div class="col-md-12" align="center">
+			<br>
+			<font size="5"><b>Withdrawal</b></font><br>
+			<font size="2">탈퇴 확인을 위한 비밀번호 입력</font>
+			<hr>
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<form action="withdrawalPro.do" method="post" class="form-signin">
+			   <input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" maxlength="12" required><br>
+			   <input type="submit" class="btn btn-lg btn-primary btn-block" value="탈퇴">
+		   </form>
+		   <br>
+		</div>
+		<div class="col-md-2"></div>
+	   <br>
+	</div>
 </div>
 </body>
 </html>

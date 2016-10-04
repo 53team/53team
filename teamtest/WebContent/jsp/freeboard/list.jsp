@@ -88,7 +88,6 @@ a {
 						<td align = "center" onclick = "location.href = 'content.do?num=${list.num}' ">${list.readnum}</td>
 				</tr>
 			</c:forEach>
-
 				</table>
 					<table align = "right">
 							<tr>	

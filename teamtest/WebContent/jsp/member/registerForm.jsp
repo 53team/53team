@@ -48,72 +48,77 @@ $(document).ready(function(){
 	<br><br>
 		<div class="col-md-2"></div>
 		<div class="col-md-8" id="middlebox" >
+			<div class="col-md-12" align="center">
+				<br>
+				<font size="5"><b>JOIN</b></font>
+				<hr>
+			</div>
 			<div class="col-md-2"></div>
 			<div class="col-md-7">
-<br><br>
-<div class="col-md-4">
-<label for="inputID">ID</label>
-</div> 
-<div class="col-md-8">
-<input type="text" id="id" name="id" class="form-control" placeholder="아이디를 입력하세요" maxlength="12" required ><br>
-</div>
-<div class="col-md-4">
-<label for="inputPassword">비밀번호</label>
-</div>
-<div class="col-md-8">
-<input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="비밀번호를 다시 입력하세요" maxlength="12" required autofocus><br>
-</div>
-<div class="col-md-4">
-<label for="repwd">비밀번호<br>확인</label>
-</div>
-<div class="col-md-8">
-<input type="password" id="repwd" name="repwd" class="form-control" placeholder="비밀번호 확인" maxlength="12" required>
-<font id="check" color="red"></font><br>
-</div>
-<div class="col-md-4">
-<label for="name">이름</label>
-</div>
-<div class="col-md-8">
-<input type="text" id="name" name="name" class="form-control" placeholder="name"required><br>
-</div>
-<div class="col-md-4">
-<label for="phone">전화번호</label>
-</div>
-<div class="col-md-8">
-<input type="tel" id="phone" name="phone"  class="form-control" placeholder="010-0000-0000" required><br>
-</div>
-<div class="col-md-4">
-<label for="location">지역</label>
-</div>
-<div class="col-md-8">
-<select name="location" class="form-control" required>
-      <option>서울</option>
-      <option>경기</option>
-      <option>강원</option>
-<option>충청</option>
-<option>경상</option>
-<option>전라</option>
-<option>제주</option>
- </select>
- <br>
-</div>
-<div class="col-md-6">
-<input type="submit" class="btn btn-lg btn-primary btn-block" value="가입하기">
-</div>
-<div class="col-md-6">
-<input type="reset" class="btn btn-lg btn-primary btn-block" value="다시쓰기">
- 	          <br>
-</div>
-
-	         </div>
-	         <div class="col-md-2">
-	            <br><br>
-	              <input type="button" id="result" class="form-control" value="중복확인"><br>
-	          </div>
-
-	         </div>
-	        </div>   
-	  <div class="col-md-2"></div>
+				<br><br>
+				<div class="col-md-4" align="right">
+					<label for="inputID">ID</label>
+				</div> 
+				<div class="col-md-8">
+					<input type="text" id="id" name="id" class="form-control" placeholder="아이디" maxlength="12" required ><br>
+				</div>
+				<div class="col-md-4" align="right">
+					<label for="inputPassword">PW</label>
+				</div>
+				<div class="col-md-8">
+					<input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="비밀번호" maxlength="12" required autofocus><br>
+				</div>
+				<div class="col-md-4" align="right">
+					<label for="repwd">PW Check</label>
+				</div>
+				<div class="col-md-8">
+					<input type="password" id="repwd" name="repwd" class="form-control" placeholder="비밀번호 확인" maxlength="12" required>
+					<font id="check" color="red"></font><br>
+				</div>
+				<div class="col-md-4" align="right">
+					<label for="name">Name</label>
+				</div>
+				<div class="col-md-8">
+					<input type="text" id="name" name="name" class="form-control" placeholder="이름"required><br>
+				</div>
+				<div class="col-md-4" align="right">
+					<label for="phone">Phone</label>
+				</div>
+				<div class="col-md-8">
+					<input type="tel" id="phone" name="phone"  class="form-control" placeholder="전화번호" required><br>
+				</div>
+				<div class="col-md-4" align="right">
+					<label for="location">Location</label>
+				</div>
+				<div class="col-md-8">
+				<select name="location" class="form-control" required>
+					<option value="서울">서울</option>
+					<option value="경기">경기</option>
+					<option value="강원">강원</option>
+					<option value="충청">충청</option>
+					<option value="경상">경상</option>
+					<option value="전라">전라</option>
+					<option value="제주">제주</option>
+				</select>
+				<br>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-5">
+					<input type="submit" class="btn btn-lg btn-primary btn-block" value="가입하기">
+				</div>
+				<div class="col-md-5">
+					<input type="reset" class="btn btn-lg btn-primary btn-block" value="다시쓰기">
+					<br>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="col-md-2">
+			<br><br>
+			<input type="button" id="result" class="form-control" value="중복확인"><br>
+			</div>
+		</div>
+	</div>   
+	<div class="col-md-2"></div>
 </div>
 </form>
 </body>

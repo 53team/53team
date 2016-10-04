@@ -3,18 +3,30 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>member/modifyCheckForm</title>
+   <meta charset="utf-8">
+	<title>member/modifyCheckForm</title>
 </head>
 <body>
-<div>
-	<form action="modifyCheckPro.do" method="post">
-		<p>개인정보 보호를 위해 비밀번호를 한번 더 입력해 주세요<br>
-		<label for="pwd">비밀번호</label>
-		<input type="password" id="pwd" name="pwd" placeholder="최대 12자 영문/숫자" maxlength="12" required><br>
-		<input type="submit" value="정보수정">
-		<input type="reset" value="재입력">
-	</form>
+<br><br><br>
+<div class="container" id="smallbox">
+	<div class="row">
+		<div class="col-md-12" align="center">
+			<br>
+			<font size="5"><b>Modify</b></font><br>
+			<font size="2">개인정보 보호를 위한 비밀번호 입력</font>
+			<hr>
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<form action="modifyCheckPro.do" method="post" class="form-signin">
+			   <input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" maxlength="12" required><br>
+			   <input type="submit" class="btn btn-lg btn-primary btn-block" value="확인">
+		   </form>
+		   <br>
+		</div>
+		<div class="col-md-2"></div>
+	   <br>
+	</div>
 </div>
 </body>
 </html>

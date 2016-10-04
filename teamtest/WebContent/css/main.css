@@ -389,3 +389,10 @@
 	width: 486px; 
 	border-radius: 10px;
 	}
+	
+	#whitebox {
+	position:relative;
+	background-color:rgb(232, 232, 232); 
+	width: 736px; 
+	border-radius: 10px;
+	}

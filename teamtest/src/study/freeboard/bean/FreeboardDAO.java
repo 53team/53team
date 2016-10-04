@@ -216,12 +216,12 @@ public class FreeboardDAO {
 	         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
 	         pstmt.setInt(1, vo.getNum());
 	         rs = pstmt.executeQuery();
-	         CloseUtil.close(pstmt);
 	         if (rs.next()) {
 	            dbwriter = rs.getString("writer");
 
 	            if (dbwriter.equals(vo.getWriter())) {
 	               sb.append("update study_freeboard set subject = ?, content = ? where num = ?");
+	               CloseUtil.close(pstmt);
 	               pstmt = conn.prepareStatement(sb.toString());
 	               pstmt.setString(1, vo.getSubject());
 	               pstmt.setString(2, vo.getContent());
