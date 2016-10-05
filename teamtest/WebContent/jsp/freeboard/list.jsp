@@ -34,7 +34,6 @@ a {
 	text-decoration: none;
 }
 </style>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 </head>
 <body>
 <br>
@@ -96,9 +95,9 @@ a {
 										<c:if test="${sid == 'admin' }">
 											<button class="btn btn-default btn-sm"  type = "submit"><i class="glyphicon glyphicon-trash"></i></button>
 										</c:if>
-											<c:if test="${sid != null }">
-												<a href = "writeForm.do"><button class="btn btn-default btn-sm"  type = "button"><span class="fa fa-pencil" aria-hidden="true"></span></button></a>
-											</c:if>
+										<c:if test="${sid != null }">
+											<a href = "writeForm.do"><button class="btn btn-default btn-sm"  type = "button"><span class="fa fa-pencil" aria-hidden="true"></span></button></a>
+										</c:if>
 										<c:if test="${sid == null }">
 											<a href = "loginForm.do"><button class="btn btn-default btn-sm"  type = "button"><span class="fa fa-pencil" aria-hidden="true"></span></button></a>
 										</c:if>

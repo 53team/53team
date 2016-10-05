@@ -102,7 +102,7 @@ public class MemberDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
 			rs=pstmt.executeQuery();
-			System.out.println("rs값은?:"+rs);
+			
 			if(rs.next()){
 				//중복 아이디 있음
 				result=1;

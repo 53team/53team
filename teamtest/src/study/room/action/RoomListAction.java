@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import study.controller.CommandAction;
 import study.room.bean.StudyRoomDAO;
+import study.room.bean.StudyRoomVO;
 import study.room.bean.StudyboardDAO;
 
 public class RoomListAction implements CommandAction {
@@ -39,6 +40,8 @@ public class RoomListAction implements CommandAction {
 			list = Collections.EMPTY_LIST;
 		}
 		number = count - (currentPage - 1) * pageSize;
+		
+		
 
 		request.setAttribute("currentPage", new Integer(currentPage));
 		request.setAttribute("startRow", new Integer(startRow));
@@ -50,12 +53,15 @@ public class RoomListAction implements CommandAction {
 		
 		HttpSession session = request.getSession();
 		request.setAttribute("num", session.getAttribute("sid"));
-		
-		StudyRoomDAO dao2 = StudyRoomDAO.getInstance();
-		String result = dao2.select(request.getParameter("id"));
-		request.setAttribute("id_list", result);
-	
-		return "/jsp/room/roomlist.jsp";
-	}
 
+		List list2 = null;
+		list2 = dao.countList(startRow, endRow);
+		request.setAttribute("list2", list2);
+		
+		/*StudyRoomDAO dao2 = StudyRoomDAO.getInstance();
+		String result = dao2.select(request.getParameter("id"));
+		request.setAttribute("id_list", result);*/
+	
+		return "/jsp/room/roomList.jsp";
+	}
 }

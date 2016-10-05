@@ -8,8 +8,20 @@
 <title>member/withdrawalPro</title>
 </head>
 <body>
+
 <c:if test="${ result==1 }">
-	<h3>삭제완료</h3>
+	<section id="banner">
+		<div class="inner">
+			<font size="5" color="white">
+			회원탈퇴완료!<br>
+			5초 후 메인으로 돌아갑니다.<br>
+			</font>
+			<a href="main.do">메인으로</a>
+		</div>
+	</section>
+	<script type="text/javascript">
+		setTimeout("location.href='main.do'", 5000)
+	</script>
 </c:if>
 <c:if test="${ result==0 }">
 <script>

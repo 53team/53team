@@ -2,32 +2,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+hr {
+	margin-top: 0px;
+}
+</style>
 <title>notice/updateForm</title>
 </head>
 <body>
-   <form action="updatePro(notice).do?pageNum=${pageNum}" method="post" name="updateForm" onsubmit="return writeSave()">
-      <table width='400' border='1' cellspacing='0' cellpadding='0' align="center">
-         <input type="hidden" name="writer" value="${writer}">
-         <input type="hidden" name="num" value="${num}">
-         <tr>
-            <td width="70" align="center">제 목</td>
-            <td width="330">
-            <input type="text" size="40" maxlength="50" name="subject" value="${subject}">
-            </td>
-         </tr>
-         <tr>
-            <td width="70" align="center">내 용</td>
-            <td width="330"><textarea rows="13" cols="40" name="content">${content}</textarea></td>
-         </tr>
-         <tr>
-            <td align="center" colspan="2">
-				<input type="submit" value="글수정">
-				<input type="reset" value="다시작성">
-				<input type="button" value="목록보기" onclick="document.location.href='list(notice).do?pageNum=1'">
-            </td>
-         </tr>
-      </table>
-   </form>
+<br>
+<div align="center" style = "width : 600px; max-length : 1920px" id="middlebox2">
+<form action="updatePro(notice).do?pageNum=${pageNum}" method="post" name="updateForm" onsubmit="return writeSave()">
+	<input type="hidden" name="num" value="${num}">
+	<input type="hidden" name="writer" value="${writer}">
+	<div>
+		<div align="left">
+			<font size="5"><b>&nbsp;&nbsp;&nbsp;Update(notice)</b></font>
+			<hr>
+		</div>
+		<fieldset>
+			<div class="form-group">
+				<label for="inputSubject" class="col-lg-2 control-label">Subject</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" placeholder="제목" name="subject" id="inputSubject" value="${subject}">
+			</div>
+			</div>
+			<div class="form-group">
+				<br><br>
+				<label for="textArea" class="col-lg-2 control-label">Content</label>
+				<div class="col-lg-10">
+					<textarea class="form-control" rows="3" id="textArea" style="resize:none; height : 300px;" name = "content"  placeholder="내용">${content}</textarea>
+					<span class="help-block"><font color="black">STUDY53은 비속어 사용을 금지하고 있습니다.</font></span>
+				</div>
+			</div>
+		</fieldset>
+		<div align = "right">
+		<button class="btn btn-default btn-sm"  type="submit"><span class="fa fa-pencil" aria-hidden="true"></span></button>
+		<button class="btn btn-default btn-sm"  type="reset" ><span class="fa fa-repeat" aria-hidden="true"></span></button>
+		<button class="btn btn-default btn-sm"  type="button" onclick="window.location='list(notice).do'"><span class="fa fa-th-list" aria-hidden="true"></span></button>
+		</div>
+	</div>
+</form>
+</div>
 </body>
 </html>

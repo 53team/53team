@@ -60,13 +60,13 @@ $(document).ready(function(){
 					<label for="inputID">ID</label>
 				</div> 
 				<div class="col-md-8">
-					<input type="text" id="id" name="id" class="form-control" placeholder="아이디" maxlength="12" required ><br>
+					<input type="text" id="id" name="id" class="form-control" placeholder="아이디" maxlength="12" required autofocus><br>
 				</div>
 				<div class="col-md-4" align="right">
 					<label for="inputPassword">PW</label>
 				</div>
 				<div class="col-md-8">
-					<input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="비밀번호" maxlength="12" required autofocus><br>
+					<input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="비밀번호" maxlength="12" required><br>
 				</div>
 				<div class="col-md-4" align="right">
 					<label for="repwd">PW Check</label>
@@ -118,6 +118,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>   
+	<br><br>
 	<div class="col-md-2"></div>
 </div>
 </form>

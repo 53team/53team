@@ -5,8 +5,15 @@ import java.util.Map;
 
 public class StudyRoomVO {
 	private String id, sub_id;
-	private int limit, count;
+	private int num, limit, count;
 	
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	public String getId() {
 		return id;

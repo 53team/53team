@@ -216,6 +216,7 @@ public class FreeboardDAO {
 	         pstmt = conn.prepareStatement("select writer from study_freeboard where num = ?");
 	         pstmt.setInt(1, vo.getNum());
 	         rs = pstmt.executeQuery();
+	         
 	         if (rs.next()) {
 	            dbwriter = rs.getString("writer");
 

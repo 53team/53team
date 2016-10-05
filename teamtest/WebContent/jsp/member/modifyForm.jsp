@@ -9,18 +9,18 @@
 <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
 <script>
 $(document).ready(function(){
-   $('#inputPassword').keyup(function(){
-      $('#check').text('');
-   });
-   $('#repwd').keyup(function(){
-      if($('#inputPassword').val()==$('#repwd').val()){
-         $('#check').text('');
-          $('#check').html("암호가 동일합니다");
-      } else {
-          $('#check').text('');
-          $('#check').html("암호가 다릅니다. 다시 입력해주세요");
-      }
-   });
+	   $('#inputPassword').keyup(function(){
+	      $('#check').text('');
+	   });
+	   $('#repwd').keyup(function(){
+	      if($('#inputPassword').val()==$('#repwd').val()){
+	         $('#check').text('');
+	          $('#check').html("암호가 동일합니다");
+	      } else {
+	          $('#check').text('');
+	          $('#check').html("암호가 다릅니다. 다시 입력해주세요");
+	      }
+	   });
 </script>
 </head>
 <body>
@@ -102,7 +102,8 @@ $(document).ready(function(){
 				<div class="col-md-1"></div>
 			</div>
 		</div>
-	</div>   
+	</div> 
+	<br><br>  
 	<div class="col-md-2"></div>
 </div>
 </form>

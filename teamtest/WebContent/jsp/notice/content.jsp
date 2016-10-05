@@ -6,34 +6,50 @@
 	<title>notice/content</title>
 </head> 
 <body>
-<div align="center">
-	<table width="50%" border = "1" cellspacing = "2" cellpadding="0" align="center">
-		<tr height="30">	
-			<td align="center" width = "125">글제목</td>
-			<td align="center" width = "125" colspan="5">${subject }</td>
-
-		</tr>
-		<tr height="30">
-			<td align="center" width = "125">조회수</td>
-			<td align="center" width = "125">${readnum }</td>
-			<td align="center" width = "125">작성자</td>
-			<td align="center" width = "125">${writer }</td>
-			<td align="center" width = "125">작성일</td>
-			<td align="center" width = "125">${reg_date }</td>
-		</tr>
-		<tr>
-			<td align="center" width = "500" colspan="6" style="word-wrap:break-word"><pre>${content }</pre></td>
-		</tr>
-		<tr height ="30">
-			<td colspan="6" align="right">
-				<c:if test="${sid == writer || sid == 'admin'}">
-					<input type="button" value="글수정" onclick="document.location.href='updateForm(notice).do?num=${num}&pageNum=${pageNum}'"> 
-					<input type="button" value="글삭제" onclick="document.location.href='deleteForm(notice).do?num=${num}&pageNum=${pageNum}'">
+<br>
+<div class="tab-content" align="center" id="middlebox">
+<br>
+<font style="font-family: 맑은고딕;">
+	<div class="container" style="width : 700px;">
+		<div class="content-container clearfix">
+			<div class="col-md-12">
+				<div align="left">
+					<table>
+						<tr>
+							<td align="left" width="500px">
+							<font size="5px"><b>${subject }</b></font> <font color = "gray">｜</font><a href="list(notice).do">Notice</a>
+							</td>
+							<td>
+                  				<div align = "right">
+									<b>${writer }</b>
+								</div>
+								<div align = "right">
+									${reg_date }
+								</div>
+							</td>
+						</tr>
+					</table>
+				<hr>
+			</div>
+			<div align = "left">
+				<textarea readonly style = "background-color:rgb(232, 232, 232); width : 650px; height:300px; outline-style:none; border:0; resize: none;">${content }</textarea>
+				</div>
+			<div align = "right">
+				<br>
+				<c:if test="${sid == 'admin'}">
+					<button class="btn btn-default btn-sm"  type = "button" onclick = "document.location.href='updateForm(notice).do?num=${num}'"><span class="fa fa-pencil-square-o"></span></button>
+					<button class="btn btn-default btn-sm"  type = "button" onclick = "document.location.href='deleteForm(notice).do?num=${num}'"><i class="glyphicon glyphicon-trash"></i></button>
 				</c:if>
-					<input type = "button" value="목록 보기" onclick="document.location.href='list(notice).do?pageNum=1'"> 
-			</td>
-		</tr>
-	</table>
+				<button class="btn btn-default btn-sm"  type = "button" onclick = "window.location='list.do' " >
+					<span class="fa fa-th-list" aria-hidden="true"></span>
+				</button>
+			</div>
+			</div>
+		</div>
+	</div>
+</font>
+<br>
 </div>
+<br>
 </body>
 </html>

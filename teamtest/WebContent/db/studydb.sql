@@ -40,6 +40,7 @@ create table study_room(
 	category varchar2(30) not null
 ) SEGMENT creation IMMEDIATE;
 create table room_reg(
+	num number(7) primary key,
 	id varchar2(20),
 	sub_id varchar2(200),
 	limit number(3),
@@ -66,6 +67,10 @@ create sequence studyroom_num
 	increment by 1
 	start with 1
 	nocache;
+create sequence roomreg_num
+	increment by 1
+	start with 1
+	nocache;
 	
 select * from study_member;
 select * from study_freeboard;
@@ -87,3 +92,4 @@ drop sequence freeboard_num;
 drop sequence notice_num;
 drop sequence replyboard_num;
 drop sequence studyroom_num;
+drop sequence roomreg_num;
