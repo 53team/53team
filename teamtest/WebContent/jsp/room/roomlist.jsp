@@ -16,11 +16,6 @@
  		color: gray; 
  		text-decoration: none;
  	}
- 	
- 	#buttonright {
-	 	text-align: right;
-	 	padding-right: 10px;
- 	}
 </style>
 </head>
 <body>
@@ -49,20 +44,17 @@
 			<a href="room.do?num=${ list.num }&pageNum=${currentPage }&limit=${list.limit}&location=${list.location}&reg_date=${limit.reg_date}&category=${list.category}&title=${list.title}">
 				<div class="offer">
 					<div class="offer-content" align="left">
-						<table>
+						<table width=400px>
 							<tr>
-								<td></td>
-								<td width="260px"></td>
-								<td align="right"><font size="2">${list.location }</font></td>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list.location }</font></td>
 							</tr>
 							<tr>
 								<td><font size="5">${ list.title }</font>(${ list.category })</td>
-								<td></td>
 								<td align="right"><font size="2">${list2[idx.index]} / ${ list.limit }</font></td>
 							</tr>
 							<tr>
-								<td></td>
-								<td></td>							
+								<td></td>				
 								<td align="right"><font size="2">${ list.id }</font></td>
 							</tr>
 						</table>
@@ -70,9 +62,6 @@
 				</div>
 			</a>
 		</c:if>
-		
-
-		
 		<!-- 마감된것 -->
 		<c:if test="${list.limit == list2[idx.index] }">
 			<a href="roomFull.do?limit=${list.limit }&count=${list2[idx.index]}">
@@ -83,20 +72,17 @@
 						</div>
 					</div>
 					<div class="offer-content" align="left">
-						<table>
+						<table width=400px>
 							<tr>
-								<td></td>
-								<td width="260px"></td>
-								<td align="right"><font size="2">${list.location }</font></td>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list.location }</font></td>
 							</tr>
 							<tr>
 								<td><font size="5">${ list.title }</font>(${ list.category })</td>
-								<td></td>
 								<td align="right"><font size="2">${list2[idx.index]} / ${ list.limit }</font></td>
 							</tr>
 							<tr>
-								<td></td>
-								<td></td>							
+								<td></td>						
 								<td align="right"><font size="2">${ list.id }</font></td>
 							</tr>
 						</table>
@@ -106,6 +92,7 @@
         </c:if>
 		</c:forEach>
 		<div id="buttonright">
+		<a href="myStudy.do"><button class="btn btn-default btn-sm"  type = "button">내 공부방</button></a>
 		<a href="groupForm.do"><button class="btn btn-default btn-sm"  type = "button">방개설</button></a><br>
 		</div>
 		<c:if test="${count > 0 }">

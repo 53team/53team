@@ -13,15 +13,8 @@ public class DeleteFormAction implements CommandAction {
       int num = Integer.parseInt(request.getParameter("num"));
       String pageNum = request.getParameter("pageNum");
       
-      try {
-         
-         NoticeDAO dao = NoticeDAO.getInstance();
-         NoticeVO vo = dao.update(num);
-         
-         request.setAttribute("num", vo.getNum());
-         request.setAttribute("writer", vo.getWriter());
-         request.setAttribute("subject", vo.getSubject());
-         request.setAttribute("content", vo.getContent());
+      try {        
+         request.setAttribute("num", num);
          request.setAttribute("pageNum", pageNum);
          
       } catch (Exception e) {

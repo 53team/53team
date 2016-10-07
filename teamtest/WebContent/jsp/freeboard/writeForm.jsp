@@ -13,7 +13,7 @@ hr {
 </head>
 <body>
 <br>
-<div align="center" style = "width : 600px; max-length : 1920px" id="middlebox2">
+<div align="center" id="middlebox2">
 <form action = "writePro.do" method="post" name="writeform" onsubmit="return writeSave()">
 	<input type="hidden" name="num" value="${num}">
 	<c:if test="${sid == 'admin' }">
@@ -22,7 +22,6 @@ hr {
 	<c:if test="${sid != 'admin' }">
 		<input type="hidden" name="writer" value="${sid }">
 	</c:if>
-	<div>
 		<div align="left">
 			<font size="5"><b>&nbsp;&nbsp;&nbsp;Write</b></font>
 			<hr>
@@ -48,7 +47,7 @@ hr {
 		<button class="btn btn-default btn-sm"  type = "reset" ><span class="fa fa-repeat" aria-hidden="true"></span></button>
 		<button class="btn btn-default btn-sm"  type = "button" onclick = "window.location='list.do' "><span class="fa fa-th-list" aria-hidden="true"></span></button>
 		</div>
-	</div>
+
 </form>
 </div>
 </body>

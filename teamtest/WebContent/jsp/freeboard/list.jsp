@@ -128,6 +128,7 @@ a {
 				<c:set var="startPage" value="${(rs - 1) * pageBlock + 1}"/>
 			</c:if>
 			<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+			
 			<c:if test="${startPage > 5 }">
 				<a href="list.do?pageNum=${startPage - pageBlock }&keyField=${vo.keyField}&keyWord=${vo.keyWord}">[이전]</a>
 			</c:if>

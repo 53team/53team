@@ -6,7 +6,7 @@
   	<servlet-class>study.controller.Controller</servlet-class>
   	<init-param>
   		<param-name>propertyConfig</param-name>
-  		<param-value>C:/pjk/web/workspace/teamtest/WebContent/WEB-INF/commandBoard.properties</param-value>
+  		<param-value>C:\pjk\web\workspace\teamtest\WebContent\WEB-INF\commandBoard.properties</param-value>
   	</init-param>
   </servlet>
   <servlet-mapping>

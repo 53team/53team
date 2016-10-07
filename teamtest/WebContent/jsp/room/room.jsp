@@ -7,17 +7,147 @@
 <title>Insert title here</title>
 <script src = "http://code.jquery.com/jquery-1.7.1.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=d8a783ab647cf241b46707bc4e31d1ac&libraries=services"></script>
+<style>
+	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+	.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+	.map_wrap {position:relative;width:700px;height:350px;}
+	#menu_wrap {position:absolute; top:0px; left:-150px; bottom:0; width:250px; margin:0; padding:5px; overflow-y:auto; background:rgba(255, 255, 255, 0.7); z-index: 1; font-size:12px; border-radius:10px;}
+	.bg_white {background:#fff;}
+	#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+	#menu_wrap .option{text-align: center;}
+	#menu_wrap .option p {margin:10px 0;}  
+	#menu_wrap .option button {margin-left:5px;}
+	#placesList li {list-style: none;}
+	#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+	#placesList .item span {display: block;margin-top:4px;}
+	#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+	#placesList .item .info{padding:10px 0 10px 55px;}
+	#placesList .info .gray {color:#8a8a8a;}
+	#placesList .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+	#placesList .info .tel {color:#009900;}
+	#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+	#placesList .item .marker_1 {background-position: 0 -10px;}
+	#placesList .item .marker_2 {background-position: 0 -56px;}
+	#placesList .item .marker_3 {background-position: 0 -102px}
+	#placesList .item .marker_4 {background-position: 0 -148px;}
+	#placesList .item .marker_5 {background-position: 0 -194px;}
+	#placesList .item .marker_6 {background-position: 0 -240px;}
+	#placesList .item .marker_7 {background-position: 0 -286px;}
+	#placesList .item .marker_8 {background-position: 0 -332px;}
+	#placesList .item .marker_9 {background-position: 0 -378px;}
+	#placesList .item .marker_10 {background-position: 0 -423px;}
+	#placesList .item .marker_11 {background-position: 0 -470px;}
+	#placesList .item .marker_12 {background-position: 0 -516px;}
+	#placesList .item .marker_13 {background-position: 0 -562px;}
+	#placesList .item .marker_14 {background-position: 0 -608px;}
+	#placesList .item .marker_15 {background-position: 0 -654px;}
+	#pagination {margin:10px auto;text-align: center;}
+	#pagination a {display:inline-block;margin-right:10px;}
+	#pagination .on {font-weight: bold; cursor: default;color:#777;}
+</style>
+</head>
+<body>
+<br>
+<div id="box">
+<br>
+	<div align="center">
+		<font size="5"><b>StudyRoom - ${ title }</b></font>
+		<hr>
+	</div><!-- center div끝 -->
+	<div style=" position: relative;">
+		<div class="col-md-6" align="left" style="width:435px;">
+			<table width="500px">
+				<tr>
+					<td align="right"><b>번　호 : </b>&nbsp;&nbsp;</td>
+					<td>${ num }</td>    
+				</tr>
+				<tr>
+					<td align="right"><b>인　원 : </b>&nbsp;&nbsp;</td>
+					<td>${ count } / ${ limit }</td>
+				</tr>
+				<tr>
+					<td align="right"><b>개설자 : </b>&nbsp;&nbsp;</td>
+					<td>${ id }</td>
+				</tr>
+				<tr>
+					<td align="right"><b>개설일 : </b>&nbsp;&nbsp;</td>
+					<td>${ reg_date }</td>
+				</tr>
+				<tr>
+					<td align="right"><b>지　역 : </b>&nbsp;&nbsp;</td>
+					<td>${ location }</td>
+				</tr>
+				<tr>
+					<td align="right"><b>내　용 : </b>&nbsp;&nbsp;</td>
+					<td>${ content }</td>
+				</tr>
+			</table>
+		</div><!-- col-md-6 div끝 -->
+		<div class="col-md-6" style="width:300px; position:absolute; bottom:0; right: 20px;">
+			<div id="chat" align="left">
+				<div style="width: 288px; height:451px; border:solid 2px; overflow:auto" id="txtarea">
+					<dl id="txtappend"></dl>
+				</div>
+				<div class="input-group custom-search-form" style="margin-top:10px;">
+					<input type="text" class="form-control" style="width:234px;" id="txt" onkeydown="enterClick();">
+					<span class="input-group-btn">
+						<input class="btn btn-default" type="button" name="btn" id="btn" value="send">
+					</span>
+				</div>
+			</div>
+		</div><!-- col-md-6 div끝 -->
+<!-- 인원 출력 -->
+		<div style="width: 170px; height:121px; border:solid 1px; overflow:auto; margin-right: 500px;" id="ids" >
+			<dl>
+				<p>가입자 목록<br>
+				<c:forTokens var="ids" items="${ ids }" delims=",">
+					<c:out value="${ids }" />
+					<br>
+				</c:forTokens>
+			</dl>
+		</div>
+		<br>
+<!-- 맵 영역 -->
+		<div class="map_wrap" align="center">
+		    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden; margin-left:-300px;"></div>
+		    <div id="menu_wrap" class="bg_white">
+		        <div class="option">
+		            <div>
+		                <form onsubmit="searchPlaces(); return false;">
+		                    <input type="hidden" value="${location} 북카페" id="keyword" size="15"> 
+		                    <!-- <button type="submit">검색하기</button> --> 
+		                </form>
+		            </div>
+		        </div>
+		        <hr>
+		        <ul id="placesList"></ul>
+		        <div id="pagination"></div>
+		    </div>
+		</div>
+	</div>
+	<br>
+	<c:if test="${sid == id || sid == 'admin'}">
+		<input type="button" value="방삭제" class="btn btn-default btn-sm" onclick="document.location.href='roomdelete.do?num=${num}'">
+	</c:if>
+	<c:if test="${count < limit && sid != id}">
+		<input type = "button" value="가입" class="btn btn-default btn-sm" onclick="document.location.href='room.do?sid2=${sid}&num=${num}'">
+	</c:if>
+		<input type = "button" value="목록" class="btn btn-default btn-sm" onclick="document.location.href='roomList.do'"> 
+<br><br>
+</div>
+<br>
 <script>
     //엔터키에 메세지전송 자바스크립트
    function enterClick(){
-      if(event.keyCode==13){
+      if(event.keyCode==13&&$('#txt').val()!=''){
          btn.click();
          $('#txt').val('');
       }
    }
 
     $(document).ready(function(){
-       var socket = io.connect('http://192.168.0.50:52273/');
+       var socket = io.connect('http://192.168.0.29:52273/');
        
           var userid = '${ sid }';
           var roomname = '${ num }';
@@ -37,148 +167,10 @@
        
        socket.on('message', function(data){
           $('#txtappend').append('<dd style="margin:0px">'+ data + '</dd>');
+          $("#txtarea").scrollTop($("#txtarea")[0].scrollHeight);
        });
     });
-    
-    
-    </script>
-        <style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:700px;height:350px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
-</head>
-<body>
-
-<!-- 인원 출력 -->
-<div>
-	<div style="width: 170px; height:170px; border:solid 1px; overflow:auto" id="ids">
-         <dl>
-         	<p>가입자 목록<br>
-         	<c:forTokens var="ids" items="${ ids }" delims=",">
-			<c:out value="${ids }" />
-			<br>
-			</c:forTokens>
-         </dl>
-    </div>
-</div>
-<table>
-<tr>
-<td>
-<!-- 게시판 영역 -->
-<div align="left">
-   <form action="join.do" method="post">
-   <table border = "1" cellspacing = "2" cellpadding = "0">
-      <tr>
-         <td align="center" width = "125">글번호</td>
-         <td align="center" width = "125">${ num }</td>    
-         <td align="center" width = "125">스터디 인원(명)</td>
-         <td align="center" width = "125">${ count } / ${ limit }</td>
-      </tr>
-      <tr>
-         <td align="center" width = "125">작성자</td>
-         <td align="center" width = "125">${ id }</td>
-         <td align="center" width = "125">작성일</td>
-         <td align="center" width = "125">${ reg_date }</td>
-      </tr>
-      <tr>
-         <td align="center" width = "125">스터디지역</td>
-         <td align="center" width = "125">${ location }</td>
-         <td align="center" width = "125">카테고리</td>
-         <td align="center" width = "125">${ category }</td>
-      </tr>
-      <tr>
-         <td align="center" width = "125">글제목</td>
-         <td align="center" width = "125" colspan="3">${ title }</td>
-      </tr>
-      <tr>
-         <td align="center" width = "500" colspan="4" style="word-wrap:break-word"><pre>${ content }</pre></td>
-      </tr>
-      <tr>
-         <td colspan="4" align="right">
-         <c:if test="${sid == id || sid == 'admin'}">
-         	<input type="button" value="글삭제" onclick="document.location.href='roomdelete.do?num=${num}'">
-         </c:if>
-         <c:if test="${count < limit && sid != id}">
-         	<input type = "button" value="가입하기" onclick="document.location.href='room.do?sid2=${sid}&num=${num}'">
-         </c:if>
-         <input type = "button" value="목록 보기" onclick="document.location.href='roomList.do'"> 
-         </td>
-      </tr>
-   </table>
-   </form>
-</div>
-</td>
-
-<td>
- <!-- 채팅영역 -->
-<div id="chat" align="right">
-      <div style="width: 300px; height:300px; border:solid 1px; overflow:auto" id="txtarea">
-         <dl id="txtappend"></dl>
-      </div>
-      <br>
-      <div>
-      <input type="text" style="width:255px;" id="txt" onkeydown="enterClick();">
-      <input type="button" name="btn" id="btn" value="Enter">
-      </div>
-</div>
-</td>
-</tr>
-</table>
-<br>
-<!-- 맴 영역 -->
-<div class="map_wrap" align="center">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    <input type="hidden" value="${location} 스터디 카페" id="keyword" size="15"> 
-                    <!-- <button type="submit">검색하기</button> --> 
-                </form>
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
-
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=d8a783ab647cf241b46707bc4e31d1ac&libraries=services"></script>
+</script>
 <script>
 // 마커를 담을 배열입니다
 var markers = [];
@@ -397,6 +389,5 @@ function removeAllChildNods(el) {
     }
 }
 </script>
-
 </body>
 </html>

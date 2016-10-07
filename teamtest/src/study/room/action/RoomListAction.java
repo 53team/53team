@@ -17,7 +17,7 @@ public class RoomListAction implements CommandAction {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int pageSize = 10;
+		int pageSize = 5;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String pageNum = request.getParameter("pageNum");
 		
@@ -31,8 +31,8 @@ public class RoomListAction implements CommandAction {
 		
 		StudyboardDAO dao = StudyboardDAO.getInstance(); 
 		count = dao.getListAllCount(); 
-		int startRow = count-((currentPage-1) * pageSize) -9; 
-		int endRow = startRow + 9;
+		int startRow = count-((currentPage-1) * pageSize) -4; 
+		int endRow = startRow + 4;
 		
 		if(count > 0) {
 			list = dao.getSelectAll(startRow, endRow); 
@@ -56,7 +56,7 @@ public class RoomListAction implements CommandAction {
 
 		List list2 = null;
 		list2 = dao.countList(startRow, endRow);
-		request.setAttribute("list2", list2);
+		request.setAttribute("list2", list2);		
 		
 		/*StudyRoomDAO dao2 = StudyRoomDAO.getInstance();
 		String result = dao2.select(request.getParameter("id"));

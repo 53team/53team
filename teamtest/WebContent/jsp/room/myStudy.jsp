@@ -6,66 +6,149 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	a {
+		color: black;
+		text-decoration: none;
+	}
+	
+ 	a:hover { 
+ 		color: gray; 
+ 		text-decoration: none;
+ 	}
+</style>
 </head>
 <body>
 <c:set var="id" value="${sid}" />
 <c:if test="${id != null }">
-<div>
-	<div align="center">
-		<h3>내가 만든 스터디</h3>
-		<table border="1">
-			 <tr height="30">
-            	<td align="center" width="50">글 번 호</td>
-            	<td align="center" width="50">지   역</td>
-           		<td align="center" width="50">아이디 </td>
-            	<td align="center" width="50">제   목</td>
-            	<td align="center" width="50">제한인원</td>
-            	<td align="center" width="50">작성날짜</td>
-            	<td align="center" width="50">카테고리</td>
-         	</tr>
-         	<c:forEach var="list" items="${ list }" varStatus="idx">
-         	<tr height="30">
-         		<td align="center" width="50">${ list.num }</td>
-         		<td align="center" width="50"><c:out value="${list.location }"/></td>
-         		<td align="center" width="50">${ list.id }</td>
-         		<td>
-         		<a href="room.do?num=${ list.num }">${ list.title }</a>
-         		</td>
-         		<td align="center" width="50">${cList1[idx.index]} / ${ list.limit }</td>
-         		<td align="center" width="50">${ list.reg_date }</td>
-         		<td align="center" width="50">${ list.category }</td>
-         	</tr>
-         	</c:forEach>
-		</table>
+<br>
+<div class="container" id="middlebox">
+<br>	
+	<div align="left">
+		<font size="5"><b>내가 만든 스터디</b></font>
+		<hr>
 	</div>
 	<div align="center">
-		<h3>내가 가입한 스터디</h3>
-		<table border="1">
-		<tr height="30">
-            	<td align="center" width="50">글 번 호</td>
-            	<td align="center" width="50">지   역</td>
-           		<td align="center" width="50">아이디 </td>
-            	<td align="center" width="50">제   목</td>
-            	<td align="center" width="50">제한인원</td>
-            	<td align="center" width="50">작성날짜</td>
-            	<td align="center" width="50">카테고리</td>
-        </tr>
-        <c:forEach var="list2" items="${list2 }" varStatus="idx2">
-        <tr height="30">
-         		<td align="center" width="50">${ list2.num }</td>
-         		<td align="center" width="50">${ list2.location }</td>
-         		<td align="center" width="50">${ list2.id }</td>
-         		<td>
-         		<a href="room.do?num=${ list2.num }">${ list2.title }</a>
-         		</td>
-         		<td align="center" width="50">${cList2[idx2.index]} / ${ list2.limit }</td>
-         		<td align="center" width="50">${ list2.reg_date }</td>
-         		<td align="center" width="50">${ list2.category }</td>
-        </tr>
+		<c:forEach var="list" items="${ list }" varStatus="idx">
+		<!-- 마감안된것 -->
+		<c:if test="${list.limit > cList1[idx.index] }">
+			<a href="room.do?num=${ list.num }">
+				<div class="offer">
+					<div class="offer-content" align="left">
+						<table width=400px>
+							<tr>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list.location }</font></td>
+							</tr>
+							<tr>
+								<td><font size="5">${ list.title }</font>(${ list.category })</td>
+								<td align="right"><font size="2">${cList1[idx.index]} / ${ list.limit }</font></td>
+							</tr>
+							<tr>
+								<td></td>						
+								<td align="right"><font size="2">${ list.id }</font></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</a>
+		</c:if>
+		<!-- 마감된것 -->
+		<c:if test="${list.limit == cList1[idx.index] }">
+			<a href="room.do?num=${ list.num }">
+				<div class="offer">
+					<div class="shape">
+						<div class="shape-text">
+							마감						
+						</div>
+					</div>
+					<div class="offer-content" align="left">
+						<table width=400px>
+							<tr>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list.location }</font></td>
+							</tr>
+							<tr>
+								<td><font size="5">${ list.title }</font>(${ list.category })</td>
+								<td align="right"><font size="2">${cList1[idx.index]} / ${ list.limit }</font></td>
+							</tr>
+							<tr>
+								<td></td>							
+								<td align="right"><font size="2">${ list.id }</font></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</a>
+        </c:if>
         </c:forEach>
-        </table>
 	</div>
+	<br><br><br>
+	<div align="left">
+		<font size="5"><b>내가 가입한 스터디</b></font>
+		<hr>
+	</div>
+	<div align="center">
+        <c:forEach var="list2" items="${list2 }" varStatus="idx2">
+		<!-- 마감안된것 -->
+		<c:if test="${list2.limit > cList2[idx2.index] }">
+			<a href="room.do?num=${ list2.num }">
+				<div class="offer">
+					<div class="offer-content" align="left">
+						<table width=400px>
+							<tr>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list2.location }</font></td>
+							</tr>
+							<tr>
+								<td><font size="5">${ list2.title }</font>(${ list2.category })</td>
+								<td align="right"><font size="2">${cList2[idx2.index]} / ${ list2.limit }</font></td>
+							</tr>
+							<tr>
+								<td></td>						
+								<td align="right"><font size="2">${ list2.id }</font></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</a>
+		</c:if>
+		<!-- 마감된것 -->
+		<c:if test="${list2.limit == cList2[idx2.index] }">
+			<a href="room.do?num=${ list2.num }">
+				<div class="offer">
+					<div class="shape">
+						<div class="shape-text">
+							마감						
+						</div>
+					</div>
+					<div class="offer-content" align="left">
+						<table width=400px>
+							<tr>
+								<td width=85%></td>
+								<td width=15% align="right"><font size="2">${list2.location }</font></td>
+							</tr>
+							<tr>
+								<td><font size="5">${ list2.title }</font>(${ list2.category })</td>
+								<td align="right"><font size="2">${cList2[idx2.index]} / ${ list2.limit }</font></td>
+							</tr>
+							<tr>
+								<td></td>						
+								<td align="right"><font size="2">${ list2.id }</font></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</a>
+        </c:if>
+        </c:forEach>
+	</div>
+	<div id="buttonright">
+		<a href="roomList.do"><button class="btn btn-default btn-sm"  type = "button">목록</button></a><br>
+	</div>
+<br>
 </div>
+<br>
 </c:if>
 <c:if test="${id == null }">
 	<script>

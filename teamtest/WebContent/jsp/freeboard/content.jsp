@@ -68,7 +68,7 @@
 							</td>
 							<td align="right">
 								<c:if test="${sid == list.re_writer || sid == 'admin'}">
-									<button class="btn btn-default btn-sm"  type = "button" onclick = " document.location.href='replyDeleteForm.do?re_num=${list.re_num}&reply_num=${list.reply_num}' "><i class="glyphicon glyphicon-trash"></i></button>
+									<button class="btn btn-default btn-sm"  type="button" onclick="document.location.href='replyDeleteForm.do?re_num=${list.re_num}&reply_num=${list.reply_num}' "><i class="glyphicon glyphicon-trash"></i></button>
 								</c:if>
 							</td>
 						</tr>

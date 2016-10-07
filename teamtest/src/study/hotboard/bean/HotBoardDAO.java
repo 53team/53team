@@ -63,4 +63,31 @@ public class HotBoardDAO {
 		}
 		return list;
 	}
+
+	public int usercount() {
+	      Connection conn = null;
+	      ResultSet rs = null;
+	      Statement stmt = null;
+	      String sql;
+	      int usercount = 0;
+	      
+	      try {
+	         
+	         conn = getConnection();
+	         sql = "select count(*) from study_member ";
+	         stmt = conn.createStatement();
+	         rs = stmt.executeQuery(sql);
+	         
+	         if(rs.next()) usercount = rs.getInt(1);
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         CloseUtil.close(conn);
+	         CloseUtil.close(rs);
+	         CloseUtil.close(stmt);
+	      }
+	      
+	      return usercount;
+	   }
 }

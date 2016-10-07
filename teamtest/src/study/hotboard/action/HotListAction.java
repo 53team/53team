@@ -19,6 +19,10 @@ public class HotListAction implements CommandAction {
 		vector = dao.countCategory();
 		request.setAttribute("vector", vector);
 		
+		int count = dao.usercount();
+	      
+		request.setAttribute("usercount", count);
+		
 		return "/jsp/hot/hotList.jsp";
 	}
 
